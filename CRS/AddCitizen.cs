@@ -73,7 +73,7 @@ namespace CRS
 
         private async void button2_Click(object sender, EventArgs e)
         {
-            if(citizen.ThumbPrintData.Any())
+            if(citizen.ThumbPrintData!=null && citizen.ThumbPrintData.Any())
             {
                 citizen.FirstName = firstName.Text;
                 citizen.MiddleName = middleName.Text;
@@ -82,6 +82,9 @@ namespace CRS
                 citizen.District = district.Text;
                 citizen.Chief = chief.Text;
                 citizen.Gender = gender.Text;
+                citizen.LastName = lastName.Text;
+                citizen.NRC = nrcNumber.Text;
+                citizen.PlaceOfBirth = placeOfBirth.Text;
                 citizen.DateOfRegistration = DateTime.Now;
                 var save = await service.CreateCitizen(citizen);
                 if(save.Succeeded)
@@ -97,6 +100,15 @@ namespace CRS
                 MessageBox.Show("Please scan the right thumb print.");
                 return;
             }
+        }
+        Form owner;
+        public void Show(Form form)
+        {
+            owner = form;
+        }
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Close();                
         }
     }
 }

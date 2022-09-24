@@ -20,7 +20,20 @@ namespace CRS
         private void button1_Click(object sender, EventArgs e)
         {
             var form = new AddCitizen();
+            form.ShowDialog(this);
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            var form = new ViewCitizens();
             form.ShowDialog();
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            var close = MessageBox.Show("Are you sure you want to exit the application?", "Confirm exit", MessageBoxButtons.YesNo);
+            if (close == DialogResult.Yes)
+                Application.Exit(); 
         }
     }
 }

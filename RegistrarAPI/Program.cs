@@ -23,7 +23,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-app.MapGet("/api/generate",(DatabaseContext db) =>
+app.MapGet("/api/nrc-number", (DatabaseContext db) =>
 {
     if(!db.NRCNumbers.Any())
     {
@@ -49,6 +49,7 @@ app.MapPost("/api/create", ([FromBody] CitizenRequest request, DatabaseContext d
             DateOfBirth = request.DateOfBirth,
             MiddleName = request.MiddleName,
             Gender = request.Gender,
+            PlaceOfBirth = request.PlaceOfBirth,
             Village = request.Village,
             Chief = request.Chief,
             NRC = request.NRC,
@@ -71,6 +72,10 @@ app.MapPost("/api/create", ([FromBody] CitizenRequest request, DatabaseContext d
 
         return Result.Fail();
     }
+});
+app.MapGet("/api/citizens", async (DatabaseContext db) =>
+{
+    return await db.Citizens.ToListAsync();
 });
 app.UseHttpsRedirection();
 
