@@ -15,8 +15,7 @@ namespace CRS.Shared
         public string? MiddleName { get; set; }
         [Required, RegularExpression(@"^\d{6}\/\d{2}\/\d{1}$")]
         public string NRC { get; set; }
-        public string Gender { get; set; }
-        public string PictureUrl { get; set; }
+        public string Gender { get; set; }        
         [Required]
         public DateTime DateOfBirth { get; set; }
         [Required]
@@ -28,7 +27,7 @@ namespace CRS.Shared
         public DateTime DateOfRegistration { get; set; }
         public int Id { get; set; }
         public string FullName => FirstName + " "+MiddleName +" "+ LastName;
-        public Biometric ThumbPrint { get; set; }
+        public Biometric ThumbPrintData { get; set; }
 
     }
 }

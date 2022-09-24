@@ -9,5 +9,9 @@ namespace CRS.Shared
         public int OwnerId { get; set; }
         public Guid Guid { get; set; }
         public byte[] Data { get; set; }
+        public Biometric()
+        {
+            Guid = System.Guid.NewGuid();
+        }
     }
 }
