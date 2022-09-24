@@ -50,9 +50,10 @@
             this.webView21.AllowExternalDrop = true;
             this.webView21.CreationProperties = null;
             this.webView21.DefaultBackgroundColor = System.Drawing.Color.White;
-            this.webView21.Location = new System.Drawing.Point(-1, -1);
+            this.webView21.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.webView21.Location = new System.Drawing.Point(0, 0);
             this.webView21.Name = "webView21";
-            this.webView21.Size = new System.Drawing.Size(798, 401);
+            this.webView21.Size = new System.Drawing.Size(800, 450);
             this.webView21.TabIndex = 2;
             this.webView21.ZoomFactor = 1D;
             // 

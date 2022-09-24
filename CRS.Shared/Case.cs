@@ -11,7 +11,8 @@ namespace CRS.Shared
         public string PoliceStation { get; set; }
         public DateTime Date { get; set; }
         public Suspect Suspect { get; set; }
-
+        public List<Judgement> Judgements { get; set; }
+        public string Court { get; set; }
 
     }
 }

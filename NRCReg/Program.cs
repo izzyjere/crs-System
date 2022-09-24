@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using MudBlazor.Services;
 
 using NRCReg;
-using NRCReg.Data;
+
 
 var builder = WebApplication.CreateBuilder(args);
 

@@ -9,8 +9,11 @@ namespace CRS.Shared
     {
         [Key]
         public int Id { get; set; }
-        public int CitizenId { get; set; }
-        public Citizen Citizen { get; set; }
+        public string NRC { get; set; } 
+        public string Complexion { get; set; }
+        public string EyeColor { get; set; }
+        public string Occupation { get; set; }
+        public string PhysicalAddress { get; set; }
         public List<Case> Cases { get; set; }
         public List<Biometric> Biometrics { get; set; }
 
