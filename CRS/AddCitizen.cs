@@ -91,7 +91,7 @@ namespace CRS
                 {
                     MessageBox.Show("Save successifully");
                     citizen = new();
-                    firstName.Text = village.Text = district.Text = chief.Text = gender.Text = lastName.Text = middleName.Text = placeOfBirth.Text = String.Empty;
+                    label009.Text = village.Text = district.Text = chief.Text = gender.Text = lastName.Text = middleName.Text = placeOfBirth.Text = String.Empty;
                     nrcNumber.Text = await service.GetNRCNumber();
                 }
             }

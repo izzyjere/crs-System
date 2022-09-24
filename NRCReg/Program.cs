@@ -112,7 +112,7 @@ app.MapGet("/api/get-all", async (DatabaseContext db) =>
             Chief = request.Chief,
             NRC = request.NRC,
             District = request.District,
-            Id = request.Id,
+            Id = request.CitizenId,
             FingerPrintData = request.ThumbPrintData.Data
         };
         lis.Add(res);

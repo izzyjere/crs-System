@@ -25,7 +25,7 @@ namespace CRS.Shared
         public string Village { get; set; }
         public string District { get; set; }
         public DateTime DateOfRegistration { get; set; }
-        public int Id { get; set; }
+        public int CitizenId { get; set; }
         public string FullName => FirstName + " "+MiddleName +" "+ LastName;
         public Biometric ThumbPrintData { get; set; }
 

@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.mainLabel = new System.Windows.Forms.Label();
             this.scannerDisplay = new System.Windows.Forms.Label();
             this.fingerImage = new System.Windows.Forms.PictureBox();
             this.label6 = new System.Windows.Forms.Label();
@@ -39,7 +40,7 @@
             this.label8 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.firstName = new System.Windows.Forms.Label();
+            this.label78 = new System.Windows.Forms.Label();
             this.lastName = new System.Windows.Forms.TextBox();
             this.chief = new System.Windows.Forms.TextBox();
             this.dateOfBirth = new System.Windows.Forms.TextBox();
@@ -48,7 +49,7 @@
             this.district = new System.Windows.Forms.TextBox();
             this.gender = new System.Windows.Forms.TextBox();
             this.middleName = new System.Windows.Forms.TextBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.firstName = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.nrcNumber = new System.Windows.Forms.TextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
@@ -76,7 +77,6 @@
             this.pictureBox9 = new System.Windows.Forms.PictureBox();
             this.button2 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
-            this.mainLabel = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.fingerImage)).BeginInit();
             this.groupBox2.SuspendLayout();
@@ -109,7 +109,7 @@
             this.groupBox1.Controls.Add(this.label8);
             this.groupBox1.Controls.Add(this.label7);
             this.groupBox1.Controls.Add(this.label4);
-            this.groupBox1.Controls.Add(this.firstName);
+            this.groupBox1.Controls.Add(this.label78);
             this.groupBox1.Controls.Add(this.lastName);
             this.groupBox1.Controls.Add(this.chief);
             this.groupBox1.Controls.Add(this.dateOfBirth);
@@ -118,7 +118,7 @@
             this.groupBox1.Controls.Add(this.district);
             this.groupBox1.Controls.Add(this.gender);
             this.groupBox1.Controls.Add(this.middleName);
-            this.groupBox1.Controls.Add(this.textBox1);
+            this.groupBox1.Controls.Add(this.firstName);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.nrcNumber);
             this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -129,6 +129,16 @@
             this.groupBox1.TabIndex = 28;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "NATIONAL REGISTRATION DETAILS";
+            // 
+            // mainLabel
+            // 
+            this.mainLabel.AutoSize = true;
+            this.mainLabel.ForeColor = System.Drawing.Color.Sienna;
+            this.mainLabel.Location = new System.Drawing.Point(329, 250);
+            this.mainLabel.Name = "mainLabel";
+            this.mainLabel.Size = new System.Drawing.Size(146, 17);
+            this.mainLabel.TabIndex = 50;
+            this.mainLabel.Text = "Scan Right Thumb ";
             // 
             // scannerDisplay
             // 
@@ -223,14 +233,14 @@
             this.label4.TabIndex = 39;
             this.label4.Text = "Gender";
             // 
-            // firstName
+            // label78
             // 
-            this.firstName.AutoSize = true;
-            this.firstName.Location = new System.Drawing.Point(216, 50);
-            this.firstName.Name = "firstName";
-            this.firstName.Size = new System.Drawing.Size(86, 17);
-            this.firstName.TabIndex = 38;
-            this.firstName.Text = "First Name";
+            this.label78.AutoSize = true;
+            this.label78.Location = new System.Drawing.Point(216, 50);
+            this.label78.Name = "label78";
+            this.label78.Size = new System.Drawing.Size(86, 17);
+            this.label78.TabIndex = 38;
+            this.label78.Text = "First Name";
             // 
             // lastName
             // 
@@ -296,13 +306,13 @@
             this.middleName.Size = new System.Drawing.Size(155, 23);
             this.middleName.TabIndex = 30;
             // 
-            // textBox1
+            // firstName
             // 
-            this.textBox1.Location = new System.Drawing.Point(219, 66);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.ReadOnly = true;
-            this.textBox1.Size = new System.Drawing.Size(155, 23);
-            this.textBox1.TabIndex = 29;
+            this.firstName.Location = new System.Drawing.Point(219, 66);
+            this.firstName.Name = "firstName";
+            this.firstName.ReadOnly = true;
+            this.firstName.Size = new System.Drawing.Size(155, 23);
+            this.firstName.TabIndex = 29;
             // 
             // label1
             // 
@@ -583,16 +593,6 @@
             this.button1.Text = "Close";
             this.button1.UseVisualStyleBackColor = false;
             // 
-            // mainLabel
-            // 
-            this.mainLabel.AutoSize = true;
-            this.mainLabel.ForeColor = System.Drawing.Color.Sienna;
-            this.mainLabel.Location = new System.Drawing.Point(329, 250);
-            this.mainLabel.Name = "mainLabel";
-            this.mainLabel.Size = new System.Drawing.Size(146, 17);
-            this.mainLabel.TabIndex = 50;
-            this.mainLabel.Text = "Scan Right Thumb ";
-            // 
             // AddSuspect
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -641,7 +641,7 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label firstName;
+        private System.Windows.Forms.Label label78;
         private System.Windows.Forms.TextBox lastName;
         private System.Windows.Forms.TextBox chief;
         private System.Windows.Forms.TextBox dateOfBirth;
@@ -650,7 +650,7 @@
         private System.Windows.Forms.TextBox district;
         private System.Windows.Forms.TextBox gender;
         private System.Windows.Forms.TextBox middleName;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox firstName;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox nrcNumber;
         private System.Windows.Forms.GroupBox groupBox2;

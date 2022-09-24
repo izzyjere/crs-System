@@ -58,6 +58,7 @@ namespace CRS.Client
                     if(Model== null)
                     {
                         mainLabel.Invoke(s => { s.Text = "Details not found."; s.ForeColor = Color.Red; });
+                        suspectService = new();
                     }
                     else
                     {

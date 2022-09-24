@@ -30,18 +30,27 @@ namespace CRS.Client.Services
             };
             Load();
         }
-       async void Load()
+        async void Load()
         {
-            var response = await httpClient.GetAsync("api/get-all");
-            var result = await response.ToResult<List<CitizenResponse>>();
-            _citizenResponses = result.Data;
-        }
-       async Task<IResult<CitizenResponse>> Identify(Bitmap bmp)
-        {
-            
-            if(!_citizenResponses.Any())
+            try
             {
-                return null;
+                var response = await httpClient.GetAsync("api/get-all");
+                var result = await response.ToResult<List<CitizenResponse>>();
+                _citizenResponses = result.Data;
+            }
+            catch (Exception)
+            {
+
+                _citizenResponses = new();
+            }
+
+        }
+        async Task<IResult<CitizenResponse>> Identify(Bitmap bmp)
+        {
+
+            if (!_citizenResponses.Any())
+            {
+                return Result<CitizenResponse>.Fail();
             }
             try
             {
@@ -53,15 +62,15 @@ namespace CRS.Client.Services
                     {
                         Id = citizen.Id,
                     };
-                    
-                         var ms = new MemoryStream(citizen.FingerPrintData);
-                        Bitmap bitmap = new(ms);
-                        Fingerprint fp = new()
-                        {
-                            AsBitmap = bitmap
-                        };
-                        person.Fingerprints.Add(fp);
-                
+
+                    var ms = new MemoryStream(citizen.FingerPrintData);
+                    Bitmap bitmap = new(ms);
+                    Fingerprint fp = new()
+                    {
+                        AsBitmap = bitmap
+                    };
+                    person.Fingerprints.Add(fp);
+
                     _afis.Extract(person);
                     allPersons.Add(person);
 
@@ -81,10 +90,12 @@ namespace CRS.Client.Services
                 return Result<CitizenResponse>.Fail(ex.Message + ex.StackTrace);
             }
         }
-        public async Task<CitizenResponse> GetDetails( Bitmap bitmap)
+        public async Task<CitizenResponse> GetDetails(Bitmap bitmap)
         {
             var result = await Identify(bitmap);
-            return result.Data;
+            if(result.Succeeded)
+              return result.Data;
+            return null;
         }
         private CitizenResponse ValidateFingerprint(Bitmap bitmap, List<Person> allPersons)
         {
@@ -99,8 +110,8 @@ namespace CRS.Client.Services
             if (match == null)
             {
                 return null;
-            }            
-            return _citizenResponses.FirstOrDefault(r=>r.Id == match.Id);
+            }
+            return _citizenResponses.FirstOrDefault(r => r.Id == match.Id);
 
         }
     }

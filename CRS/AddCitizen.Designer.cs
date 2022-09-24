@@ -32,8 +32,8 @@
             this.button2 = new System.Windows.Forms.Button();
             this.nrcNumber = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.firstName = new System.Windows.Forms.Label();
+            this.firstName = new System.Windows.Forms.TextBox();
+            this.label009 = new System.Windows.Forms.Label();
             this.middleName = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.lastName = new System.Windows.Forms.TextBox();
@@ -96,21 +96,21 @@
             this.label1.TabIndex = 2;
             this.label1.Text = "NRC Number";
             // 
-            // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(240, 112);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(155, 20);
-            this.textBox1.TabIndex = 1;
-            // 
             // firstName
             // 
-            this.firstName.AutoSize = true;
-            this.firstName.Location = new System.Drawing.Point(237, 96);
+            this.firstName.Location = new System.Drawing.Point(240, 112);
             this.firstName.Name = "firstName";
-            this.firstName.Size = new System.Drawing.Size(57, 13);
-            this.firstName.TabIndex = 2;
-            this.firstName.Text = "First Name";
+            this.firstName.Size = new System.Drawing.Size(155, 20);
+            this.firstName.TabIndex = 1;
+            // 
+            // label009
+            // 
+            this.label009.AutoSize = true;
+            this.label009.Location = new System.Drawing.Point(237, 96);
+            this.label009.Name = "label009";
+            this.label009.Size = new System.Drawing.Size(57, 13);
+            this.label009.TabIndex = 2;
+            this.label009.Text = "First Name";
             // 
             // middleName
             // 
@@ -277,7 +277,7 @@
             this.Controls.Add(this.label8);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.label4);
-            this.Controls.Add(this.firstName);
+            this.Controls.Add(this.label009);
             this.Controls.Add(this.lastName);
             this.Controls.Add(this.chief);
             this.Controls.Add(this.placeOfBirth);
@@ -285,7 +285,7 @@
             this.Controls.Add(this.district);
             this.Controls.Add(this.gender);
             this.Controls.Add(this.middleName);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.firstName);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.nrcNumber);
             this.Controls.Add(this.button2);
@@ -304,8 +304,8 @@
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.TextBox nrcNumber;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.Label firstName;
+        private System.Windows.Forms.TextBox firstName;
+        private System.Windows.Forms.Label label009;
         private System.Windows.Forms.TextBox middleName;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox lastName;

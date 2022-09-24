@@ -25,7 +25,7 @@ namespace NRCReg
                 e.OwnsOne(e => e.PersonalDetails, p =>
                 {
                     p.ToTable("CitizenDetails");
-                    p.Property(p => p.Id);
+                    p.Property(p => p.CitizenId);
                     p.OwnsOne(p => p.ThumbPrintData, e =>
                     {
                         e.ToTable("ThumbPrintData");
