@@ -76,6 +76,7 @@
             this.pictureBox9 = new System.Windows.Forms.PictureBox();
             this.button2 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
+            this.mainLabel = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.fingerImage)).BeginInit();
             this.groupBox2.SuspendLayout();
@@ -97,6 +98,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.mainLabel);
             this.groupBox1.Controls.Add(this.scannerDisplay);
             this.groupBox1.Controls.Add(this.fingerImage);
             this.groupBox1.Controls.Add(this.label6);
@@ -331,9 +333,9 @@
             this.groupBox2.Controls.Add(this.complexion);
             this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox2.ForeColor = System.Drawing.Color.Black;
-            this.groupBox2.Location = new System.Drawing.Point(59, 332);
+            this.groupBox2.Location = new System.Drawing.Point(59, 318);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(761, 127);
+            this.groupBox2.Size = new System.Drawing.Size(761, 98);
             this.groupBox2.TabIndex = 28;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "SUSPECT DETAILS";
@@ -409,7 +411,7 @@
             this.groupBox3.Controls.Add(this.tabControl1);
             this.groupBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox3.ForeColor = System.Drawing.Color.Black;
-            this.groupBox3.Location = new System.Drawing.Point(59, 480);
+            this.groupBox3.Location = new System.Drawing.Point(59, 422);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(761, 226);
             this.groupBox3.TabIndex = 28;
@@ -562,7 +564,7 @@
             // 
             this.button2.BackColor = System.Drawing.Color.ForestGreen;
             this.button2.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.button2.Location = new System.Drawing.Point(697, 718);
+            this.button2.Location = new System.Drawing.Point(729, 654);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(91, 32);
             this.button2.TabIndex = 29;
@@ -573,18 +575,28 @@
             // 
             this.button1.BackColor = System.Drawing.Color.Red;
             this.button1.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.button1.Location = new System.Drawing.Point(104, 718);
+            this.button1.Location = new System.Drawing.Point(59, 654);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(91, 32);
             this.button1.TabIndex = 30;
             this.button1.Text = "Close";
             this.button1.UseVisualStyleBackColor = false;
             // 
+            // mainLabel
+            // 
+            this.mainLabel.AutoSize = true;
+            this.mainLabel.ForeColor = System.Drawing.Color.Sienna;
+            this.mainLabel.Location = new System.Drawing.Point(329, 250);
+            this.mainLabel.Name = "mainLabel";
+            this.mainLabel.Size = new System.Drawing.Size(146, 17);
+            this.mainLabel.TabIndex = 50;
+            this.mainLabel.Text = "Scan Right Thumb ";
+            // 
             // AddSuspect
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(884, 753);
+            this.ClientSize = new System.Drawing.Size(884, 735);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.groupBox3);
@@ -665,5 +677,6 @@
         private System.Windows.Forms.PictureBox pictureBox9;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Label mainLabel;
     }
 }

@@ -74,6 +74,7 @@
     <Compile Include="BiometricRequest.cs" />
     <Compile Include="CaseRequest.cs" />
     <Compile Include="CitizenRequest.cs" />
+    <Compile Include="CitizenResponse.cs" />
     <Compile Include="IResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Result.cs" />

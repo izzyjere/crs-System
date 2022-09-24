@@ -31,7 +31,8 @@ namespace CRS.Client
 
         private void button1_Click(object sender, EventArgs e)
         {
-
+            var form = new AddSuspect();
+            form.ShowDialog();
         }
     }
 }

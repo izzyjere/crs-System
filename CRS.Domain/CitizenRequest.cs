@@ -8,8 +8,7 @@ namespace CRS.Domain
     public class CitizenRequest
     {
        
-        public string FirstName { get; set; }
-        
+        public string FirstName { get; set; }         
         public string LastName { get; set; }
         public string MiddleName { get; set; }
         public string NRC { get; set; }
@@ -19,9 +18,8 @@ namespace CRS.Domain
         public string Chief { get; set; }
         public string Village { get; set; }
         public string District { get; set; }
-        public DateTime DateOfRegistration { get; set; }
-        public int Id { get; set; }
-        public string FullName => FirstName + " "+MiddleName +" "+ LastName;
+        public DateTime DateOfRegistration { get; set; }       
+    
         public byte[] ThumbPrintData { get; set; }
     }
 }
