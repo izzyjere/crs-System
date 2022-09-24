@@ -8,19 +8,13 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace CRS
+namespace CRS.Client
 {
-    public partial class ViewCitizens : Form
+    public partial class Main : Form
     {
-        public ViewCitizens()
+        public Main()
         {
             InitializeComponent();
-            webView21.Source =new Uri("https://localhost:5001/");
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            Close();
         }
     }
 }

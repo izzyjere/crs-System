@@ -16,7 +16,7 @@ namespace CRS.Service
         HttpClient httpClient = new();
         public CitizenService()
         {
-            httpClient.BaseAddress = new("https://localhost:7047/");
+            httpClient.BaseAddress = new("https://localhost:5001/");
         }
         public async Task<string> GetNRCNumber()
         {

@@ -1,0 +1,47 @@
+﻿@page "/"
+@using CRS.Shared
+@inject DatabaseContext db
+
+<MudTable Bordered Striped Hover Items="@Citizens">
+    <ToolBarContent>
+        <MudText Color="Color.Primary" Typo="Typo.h5">Citizens</MudText>
+        <MudSpacer />
+        <MudTextField @bind-Value="searchString1" Placeholder="Search" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
+    </ToolBarContent>
+    <HeaderContent>
+        <MudTh>Name</MudTh>
+        <MudTh>NRC Number</MudTh>
+        <MudTh>Registered On</MudTh>
+        <MudTh>Date of Birth</MudTh>
+        <MudTh>Place of Birth</MudTh>
+        <MudTh>Gender</MudTh>
+        <MudTh>Chief</MudTh>
+        <MudTh>Village</MudTh>
+        <MudTh>Actions</MudTh>
+    </HeaderContent>
+    <RowTemplate>
+       <MudTd>@context.PersonalDetails.FullName</MudTd>
+       <MudTd>@context.PersonalDetails.NRC</MudTd>
+       <MudTd>@context.PersonalDetails.DateOfRegistration.ToString("dd MMM yyyy H:mm")</MudTd>
+       <MudTd>@context.PersonalDetails.DateOfBirth.ToString("dd MMM yyyy")</MudTd>
+       <MudTd>@context.PersonalDetails.PlaceOfBirth</MudTd>
+       <MudTd>@context.PersonalDetails.Gender</MudTd>
+       <MudTd>@context.PersonalDetails.Chief</MudTd>      
+       <MudTd>@context.PersonalDetails.Village</MudTd>
+       <MudTd>
+           <MudButton Color="Color.Primary">Thumb Print</MudButton>
+       </MudTd>
+    </RowTemplate>
+    <PagerContent>
+        <MudTablePager />
+    </PagerContent>
+</MudTable>
+@code 
+{
+    List<Citizen> Citizens = new();
+    private string searchString1 = "";
+    protected override void OnInitialized()
+    {
+        Citizens = db.Citizens.ToList(); 
+    }
+}

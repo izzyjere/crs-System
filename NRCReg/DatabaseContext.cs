@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RegistrarAPI
+namespace NRCReg
 {
     public class DatabaseContext : DbContext
     {

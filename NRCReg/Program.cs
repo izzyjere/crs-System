@@ -1,31 +1,48 @@
 using CRS.Shared;
 
+using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Tokens;
 
-using RegistrarAPI;
+using MudBlazor.Services;
+
+using NRCReg;
+using NRCReg.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddRazorPages();
+builder.Services.AddServerSideBlazor();
+builder.Services.AddMudServices();
 builder.Services.AddDbContext<DatabaseContext>(o => {
     o.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+if (!app.Environment.IsDevelopment())
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseExceptionHandler("/Error");
+    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+    app.UseHsts();
 }
+
+
+app.UseHttpsRedirection();
+
+app.UseStaticFiles();
+
+app.UseRouting();
+
+app.MapBlazorHub();
+app.MapFallbackToPage("/_Host");
+
 app.MapGet("/api/nrc-number", (DatabaseContext db) =>
 {
-    if(!db.NRCNumbers.Any())
+    if (!db.NRCNumbers.Any())
     {
         int baseNumber = 100000;
         db.NRCNumbers.Add(new NRCNumber { Value = baseNumber });
@@ -35,7 +52,7 @@ app.MapGet("/api/nrc-number", (DatabaseContext db) =>
     last.Value++;
     db.NRCNumbers.Update(last);
     db.SaveChanges();
-    return Result<string>.Success(data:$"{last.Value}/67/1");
+    return Result<string>.Success(data: $"{last.Value}/67/1");
 });
 app.MapPost("/api/create", ([FromBody] CitizenRequest request, DatabaseContext db) =>
 {
@@ -77,12 +94,7 @@ app.MapGet("/api/citizens", async (DatabaseContext db) =>
 {
     return await db.Citizens.ToListAsync();
 });
-app.UseHttpsRedirection();
-
-
-
 app.Run();
-
 class CitizenRequest
 {
     public string FirstName { get; set; }
