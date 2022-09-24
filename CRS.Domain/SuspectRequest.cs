@@ -7,7 +7,8 @@ namespace CRS.Domain
     {
         
         public int Id { get; set; }
-        public  int  CitizenId { get; set; }       
+        public  int  CitizenId { get; set; }  
+        public List<byte[]> Bytes { get; set; }
 
     }
 }

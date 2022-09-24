@@ -22,6 +22,7 @@ namespace CRS.Client
         {
             InitializeComponent();
             deviceAccessor = new DeviceAccessor();
+            suspect.Bytes = new();
             InitDevice();
         }
         DeviceAccessor deviceAccessor;
@@ -29,7 +30,8 @@ namespace CRS.Client
         SuspectService suspectService = new();
         CitizenResponse Model = new();
         bool detilsPulled;
-        async void InitDevice()
+        SuspectRequest suspect = new();
+        async void InitDevice(PictureBox pictureBox=null)
         {
             var connect = deviceAccessor.AccessFingerprintDevice();
             if (!connect.Succeeded)
@@ -51,11 +53,11 @@ namespace CRS.Client
                 fingerprint.Save(tmpBmpFile);
                 fingerImage.Invoke(i => i.Image = Image.FromFile(tmpBmpFile));
                 var image = Image.FromFile(tmpBmpFile);
-                if(!detilsPulled)
+                if (!detilsPulled)
                 {
                     mainLabel.Invoke(s => { s.Text = "Please wait...."; s.ForeColor = Color.Green; });
                     Model = await suspectService.GetDetails((Bitmap)image);
-                    if(Model== null)
+                    if (Model== null)
                     {
                         mainLabel.Invoke(s => { s.Text = "Details not found."; s.ForeColor = Color.Red; });
                         suspectService = new();
@@ -63,7 +65,7 @@ namespace CRS.Client
                     else
                     {
                         mainLabel.Invoke(s => { s.Text = "Details  found."; s.ForeColor = Color.Green; });
-                        nrcNumber.Invoke(i=>i.Text = Model.NRC);
+                        nrcNumber.Invoke(i => i.Text = Model.NRC);
                         firstName.Invoke(i => i.Text = Model.FirstName);
                         lastName.Invoke(i => i.Text = Model.LastName);
                         gender.Invoke(i => i.Text = Model.Gender);
@@ -77,7 +79,21 @@ namespace CRS.Client
                 }
                 else
                 {
-
+                    if(pictureBox==null)
+                    {
+                        MessageBox.Show("Click on the finger to scan.");
+                        return;
+                    }
+                    pictureBox.Image = image;
+                    if (suspect.Bytes.Count<11)
+                    {
+                        suspect.Bytes.Add(image.ToByteArray());
+                    }
+                    else
+                    {
+                        MessageBox.Show("Limit of ten prints reached.");
+                        return;
+                    }
                 }
 
                 scannerDisplay.Invoke(s => { s.Text = "Fingerprint Captured."; s.ForeColor = Color.Green; });
@@ -94,7 +110,7 @@ namespace CRS.Client
             device.SwitchLedState(false, true);
             device.SwitchLedState(false, false);
         }
-            private void groupBox2_Enter(object sender, EventArgs e)
+        private void groupBox2_Enter(object sender, EventArgs e)
         {
 
         }
@@ -102,6 +118,62 @@ namespace CRS.Client
         private void button2_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
+        PictureBox currentFinger;
+        private void fingerImage1_Click(object sender, EventArgs e)
+        {
+            
+            InitDevice((PictureBox)sender);
+        }
+
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+            InitDevice((PictureBox)sender);
+        }
+
+        private void pictureBox2_Click(object sender, EventArgs e)
+        {
+            InitDevice((PictureBox)sender);
+        }
+
+        private void pictureBox3_Click(object sender, EventArgs e)
+        {
+            InitDevice((PictureBox)sender);
+        }
+
+        private void pictureBox4_Click(object sender, EventArgs e)
+        {
+            InitDevice((PictureBox)sender);
+        }
+
+        private void pictureBox9_Click(object sender, EventArgs e)
+        {
+            InitDevice((PictureBox)sender);
+        }
+
+        private void pictureBox8_Click(object sender, EventArgs e)
+        {
+            InitDevice((PictureBox)sender);
+        }
+
+        private void pictureBox7_Click(object sender, EventArgs e)
+        {
+            InitDevice((PictureBox)sender);
+        }
+
+        private void pictureBox6_Click(object sender, EventArgs e)
+        {
+            InitDevice((PictureBox)sender);
+        }
+
+        private void pictureBox5_Click(object sender, EventArgs e)
+        {
+            InitDevice((PictureBox)sender);
         }
     }
 }
