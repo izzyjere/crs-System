@@ -32,7 +32,7 @@ namespace CRS.Client.Services
         }
        async void Load()
         {
-            var response = await httpClient.GetAsync("api/getall");
+            var response = await httpClient.GetAsync("api/get-all");
             var result = await response.ToResult<List<CitizenResponse>>();
             _citizenResponses = result.Data;
         }

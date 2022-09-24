@@ -93,6 +93,31 @@ app.MapPost("/api/create", ([FromBody] CitizenRequest request, DatabaseContext d
 app.MapGet("/api/citizens", async (DatabaseContext db) =>
 {
     return await db.Citizens.ToListAsync();
+}); 
+app.MapGet("/api/get-all", async (DatabaseContext db) =>
+{
+    var data = await db.Citizens.ToListAsync();
+    var lis = new List<CitizenResponse>();
+    foreach (var request in data.Select(r=>r.PersonalDetails))
+    {
+        var res = new CitizenResponse()
+        {
+            FirstName = request.FirstName,
+            LastName = request.LastName,            
+            DateOfBirth = request.DateOfBirth,
+            MiddleName = request.MiddleName,
+            Gender = request.Gender,
+            PlaceOfBirth = request.PlaceOfBirth,
+            Village = request.Village,
+            Chief = request.Chief,
+            NRC = request.NRC,
+            District = request.District,
+            Id = request.Id,
+            FingerPrintData = request.ThumbPrintData.Data
+        };
+        lis.Add(res);
+    }
+    return Result<List<CitizenResponse>>.Success(lis);
 });
 app.Run();
 class CitizenRequest
@@ -112,4 +137,20 @@ class CitizenRequest
     public int Id { get; set; }
     public string FullName => FirstName + " "+MiddleName +" "+ LastName;
     public byte[] ThumbPrintData { get; set; }
+}
+class CitizenResponse
+{
+    public int Id { get; set; }
+    public string FirstName { get; set; }
+    public string LastName { get; set; }
+    public string? MiddleName { get; set; }
+    public string NRC { get; set; }
+    public string Gender { get; set; }
+    public DateTime DateOfBirth { get; set; }
+    public string PlaceOfBirth { get; set; }
+    public string Chief { get; set; }
+    public string Village { get; set; }
+    public string District { get; set; }
+    public byte[] FingerPrintData { get; set; }
+
 }

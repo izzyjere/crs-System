@@ -22,6 +22,7 @@ namespace CRS.Client
         {
             InitializeComponent();
             deviceAccessor = new DeviceAccessor();
+            InitDevice();
         }
         DeviceAccessor deviceAccessor;
         FingerprintDevice device;
@@ -30,7 +31,7 @@ namespace CRS.Client
         bool detilsPulled;
         async void InitDevice()
         {
-                        var connect = deviceAccessor.AccessFingerprintDevice();
+            var connect = deviceAccessor.AccessFingerprintDevice();
             if (!connect.Succeeded)
             {
                 MessageBox.Show(connect.Messages.First());
@@ -38,12 +39,10 @@ namespace CRS.Client
 
             }
             device = connect.Data;
-
             device.FingerDetected += async (send, eventArgs) =>
             {
                 scannerDisplay.Invoke(s => { s.Text = "Finger Detected."; s.ForeColor = Color.Green; });
                 device.SwitchLedState(true, false);
-
                 // Save fingerprint to temporary folder
                 var fingerprint = device.ReadFingerprint();
                 scannerDisplay.Invoke(s => { s.Text = "Release Finger."; s.ForeColor = Color.Red; });
@@ -54,6 +53,7 @@ namespace CRS.Client
                 var image = Image.FromFile(tmpBmpFile);
                 if(!detilsPulled)
                 {
+                    mainLabel.Invoke(s => { s.Text = "Please wait...."; s.ForeColor = Color.Green; });
                     Model = await suspectService.GetDetails((Bitmap)image);
                     if(Model== null)
                     {
@@ -62,15 +62,15 @@ namespace CRS.Client
                     else
                     {
                         mainLabel.Invoke(s => { s.Text = "Details  found."; s.ForeColor = Color.Green; });
-                        nrcNumber.Text = Model.NRC;
-                        firstName.Text = Model.FirstName;
-                        lastName.Text = Model.LastName;
-                        gender.Text = Model.Gender;
-                        district.Text = Model.District;
-                        dateOfBirth.Text = Model.DateOfBirth.ToString("dd MMM yyyy");
-                        chief.Text = Model.Chief;
-                        village.Text = Model.Village;
-                        placeOfBirth.Text = Model.PlaceOfBirth;
+                        nrcNumber.Invoke(i=>i.Text = Model.NRC);
+                        firstName.Invoke(i => i.Text = Model.FirstName);
+                        lastName.Invoke(i => i.Text = Model.LastName);
+                        gender.Invoke(i => i.Text = Model.Gender);
+                        district.Invoke(i => i.Text = Model.District);
+                        dateOfBirth.Invoke(i => i.Text = Model.DateOfBirth.ToString("dd MMM yyyy"));
+                        chief.Invoke(i => i.Text = Model.Chief);
+                        village.Invoke(i => i.Text = Model.Village);
+                        placeOfBirth.Invoke(i => i.Text = Model.PlaceOfBirth);
                         detilsPulled = true;
                     }
                 }
@@ -82,8 +82,23 @@ namespace CRS.Client
                 scannerDisplay.Invoke(s => { s.Text = "Fingerprint Captured."; s.ForeColor = Color.Green; });
 
             };
+            device.FingerReleased += (send, eventArgs) =>
+            {
+                scannerDisplay.Invoke(i => i.Text = "Finger Released.");
+
+                device.SwitchLedState(false, true);
+            };
+
+            device.StartFingerDetection();
+            device.SwitchLedState(false, true);
+            device.SwitchLedState(false, false);
         }
             private void groupBox2_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button2_Click(object sender, EventArgs e)
         {
 
         }
