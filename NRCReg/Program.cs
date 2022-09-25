@@ -17,7 +17,10 @@ builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddMudServices();
 builder.Services.AddDbContext<DatabaseContext>(o => {
-    o.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+    o.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"), o2 =>
+    {
+        o2.UseQuerySplittingBehavior(QuerySplittingBehavior.SplitQuery);
+    });
 });
 
 var app = builder.Build();
