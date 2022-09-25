@@ -162,6 +162,7 @@ namespace CRS.Client
                 }
                 suspect.Bytes.Add(image.ToByteArray());
                 fingerImage1.Invoke(i => i.Image = Image.FromStream(new MemoryStream(suspect.Bytes[0])));
+                dev.StopFingerDetection();
             };
             dev.StartFingerDetection();
             dev.SwitchLedState(false, true);
@@ -201,6 +202,7 @@ namespace CRS.Client
                 }
                 suspect.Bytes.Add(image.ToByteArray());
                 fingerImage2.Invoke(i => i.Image = Image.FromStream(new MemoryStream(suspect.Bytes[1])));
+                dev.StopFingerDetection();
             };
             dev.StartFingerDetection();
             dev.SwitchLedState(false, true);
@@ -240,6 +242,7 @@ namespace CRS.Client
                 }
                 suspect.Bytes.Add(image.ToByteArray());
                 fingerImage3.Invoke(i => i.Image = Image.FromStream(new MemoryStream(suspect.Bytes[2])));
+                dev.StopFingerDetection();
             };
             dev.StartFingerDetection();
             dev.SwitchLedState(false, true);
@@ -279,6 +282,7 @@ namespace CRS.Client
                 }
                 suspect.Bytes.Add(image.ToByteArray());
                 fingerImage4.Invoke(i => i.Image = Image.FromStream(new MemoryStream(suspect.Bytes[3])));
+                dev.StopFingerDetection();
             };
             dev.StartFingerDetection();
             dev.SwitchLedState(false, true);
@@ -318,6 +322,7 @@ namespace CRS.Client
                 }
                 suspect.Bytes.Add(image.ToByteArray());
                 fingerImage5.Invoke(i => i.Image = Image.FromStream(new MemoryStream(suspect.Bytes[4])));
+                dev.StopFingerDetection();
             };                          
             dev.StartFingerDetection();
             dev.SwitchLedState(false, true);
@@ -357,6 +362,7 @@ namespace CRS.Client
                 }
                 suspect.Bytes.Add(image.ToByteArray());
                 fingerImage6.Invoke(i => i.Image = Image.FromStream(new MemoryStream(suspect.Bytes[5])));
+                dev.StopFingerDetection();
             };
             dev.StartFingerDetection();
             dev.SwitchLedState(false, true);
@@ -396,6 +402,7 @@ namespace CRS.Client
                 }
                 suspect.Bytes.Add(image.ToByteArray());
                 fingerImage7.Invoke(i => i.Image = Image.FromStream(new MemoryStream(suspect.Bytes[6])));
+                dev.StopFingerDetection();
             };
             dev.StartFingerDetection();
             dev.SwitchLedState(false, true);
@@ -435,6 +442,7 @@ namespace CRS.Client
                 }
                 suspect.Bytes.Add(image.ToByteArray());
                 fingerImage8.Invoke(i => i.Image = Image.FromStream(new MemoryStream(suspect.Bytes[7])));
+                dev.StopFingerDetection();
             };
             dev.StartFingerDetection();
             dev.SwitchLedState(false, true);
@@ -474,6 +482,7 @@ namespace CRS.Client
                 }
                 suspect.Bytes.Add(image.ToByteArray());
                 fingerImage9.Invoke(i => i.Image = Image.FromStream(new MemoryStream(suspect.Bytes[8])));
+                dev.StopFingerDetection();
             };
             dev.StartFingerDetection();
             dev.SwitchLedState(false, true);
@@ -513,6 +522,7 @@ namespace CRS.Client
                 }
                 suspect.Bytes.Add(image.ToByteArray());
                 fingerImage10.Invoke(i => i.Image = Image.FromStream(new MemoryStream(suspect.Bytes[9])));
+                dev.StopFingerDetection();
             };
             dev.StartFingerDetection();
             dev.SwitchLedState(false, true);
