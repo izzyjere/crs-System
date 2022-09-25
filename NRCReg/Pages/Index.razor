@@ -16,21 +16,18 @@
         <MudTh>Place of Birth</MudTh>
         <MudTh>Gender</MudTh>
         <MudTh>Chief</MudTh>
-        <MudTh>Village</MudTh>
-        <MudTh>Actions</MudTh>
+        <MudTh>Village</MudTh>      
     </HeaderContent>
     <RowTemplate>
-       <MudTd>@context.PersonalDetails.FullName</MudTd>
-       <MudTd>@context.PersonalDetails.NRC</MudTd>
-       <MudTd>@context.PersonalDetails.DateOfRegistration.ToString("dd MMM yyyy H:mm")</MudTd>
-       <MudTd>@context.PersonalDetails.DateOfBirth.ToString("dd MMM yyyy")</MudTd>
-       <MudTd>@context.PersonalDetails.PlaceOfBirth</MudTd>
-       <MudTd>@context.PersonalDetails.Gender</MudTd>
-       <MudTd>@context.PersonalDetails.Chief</MudTd>      
-       <MudTd>@context.PersonalDetails.Village</MudTd>
-       <MudTd>
-           <MudButton Color="Color.Primary">Thumb Print</MudButton>
-       </MudTd>
+       <MudTd>@context?.PersonalDetails?.FullName</MudTd>
+       <MudTd>@context?.PersonalDetails?.NRC</MudTd>
+       <MudTd>@context?.PersonalDetails?.DateOfRegistration.ToString("dd MMM yyyy H:mm")</MudTd>
+       <MudTd>@context?.PersonalDetails?.DateOfBirth.ToString("dd MMM yyyy")</MudTd>
+       <MudTd>@context?.PersonalDetails?.PlaceOfBirth</MudTd>
+       <MudTd>@context?.PersonalDetails?.Gender</MudTd>
+       <MudTd>@context?.PersonalDetails?.Chief</MudTd>      
+       <MudTd>@context?.PersonalDetails?.Village</MudTd>
+       
     </RowTemplate>
     <PagerContent>
         <MudTablePager />
