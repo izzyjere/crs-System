@@ -8,11 +8,17 @@ using Microsoft.EntityFrameworkCore;
 
 using MudBlazor.Services;
 
+using System.Text;
+using System.Text.Encodings.Web;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
+
 builder.Services.AddDbContext<DatabaseContext>(o => {
     o.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"), o2 =>
     {
@@ -32,6 +38,11 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
+}
 app.UseHttpsRedirection();
 
 app.UseStaticFiles();
@@ -60,10 +71,14 @@ app.MapPost("/api/suspects", (DatabaseContext db, [FromBody] SuspectRequest requ
     db.Suspects.Add(suspect);
     return db.SaveChanges() !=0 ? Result.Success() : Result.Fail();
 });
-app.MapGet("/api/suspects/{nrc}", async (DatabaseContext db, [FromRoute] string nrc) =>
+app.MapPost("/api/suspects/{nrc}", async (DatabaseContext db, [FromBody] string nrc) =>
 {
-    var sus = await db.Suspects.Include(s => s.Cases).ThenInclude(c => c.Judgements).FirstOrDefaultAsync(s => s.NRC==nrc);
-    return sus!=null? Result<Suspect>.Success(sus):Result<Suspect>.Fail("Not found.");
+    var suspect = await db.Suspects.Include(s => s.Cases).FirstOrDefaultAsync(s => s.NRC==nrc);
+    if(suspect == null)
+    {
+        return Result<SuspectResponse2>.Fail("Not found.");
+    }
+    return Result<SuspectResponse2>.Success(new SuspectResponse2 { Cases = suspect.Cases.Count, Name = suspect.Name, NRC = suspect.NRC });
 });
 app.Run();
 record SuspectRequest
@@ -80,4 +95,12 @@ public record SuspectResponse
 {
     public Suspect Suspect { get; set; }
     public PersonalDetails PersonalDetails { get; set; }
+}
+public record SuspectResponse2
+{
+    public string Name { get; set; }
+    public string NRC { get; set; } 
+    public int Cases { get; set; }
+    public string HasCrimes => Cases >=1?"Yes":"No";
+
 }
