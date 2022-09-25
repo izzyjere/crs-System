@@ -31,7 +31,7 @@ namespace CRS.Client
         CitizenResponse Model = new();
         bool detilsPulled;
         SuspectRequest suspect = new();
-        async void InitDevice()
+        void InitDevice()
         {
             var connect = deviceAccessor.AccessFingerprintDevice();
             if (!connect.Succeeded)
@@ -41,45 +41,8 @@ namespace CRS.Client
 
             }
             device = connect.Data;
-            device.FingerDetected += async (send, eventArgs) =>
-            {
-                scannerDisplay.Invoke(s => { s.Text = "Finger Detected."; s.ForeColor = Color.Green; });
-                device.SwitchLedState(true, false);
-                // Save fingerprint to temporary folder
-                var fingerprint = device.ReadFingerprint();
-                scannerDisplay.Invoke(s => { s.Text = "Release Finger."; s.ForeColor = Color.Red; });
-                var tempFile = Path.GetTempFileName();
-                var tmpBmpFile = Path.ChangeExtension(tempFile, "bmp");
-                fingerprint.Save(tmpBmpFile);
-                fingerImage.Invoke(i => i.Image = Image.FromFile(tmpBmpFile));
-                var image = Image.FromFile(tmpBmpFile);
-                if (!detilsPulled)
-                {
-                    mainLabel.Invoke(s => { s.Text = "Please wait...."; s.ForeColor = Color.Green; });
-                    Model = await suspectService.GetDetails((Bitmap)image);
-                    if (Model== null)
-                    {
-                        mainLabel.Invoke(s => { s.Text = "Details not found."; s.ForeColor = Color.Red; });
-                        suspectService = new();
-                    }
-                    else
-                    {
-                        mainLabel.Invoke(s => { s.Text = "Details  found."; s.ForeColor = Color.Green; });
-                        nrcNumber.Invoke(i => i.Text = Model.NRC);
-                        firstName.Invoke(i => i.Text = Model.FirstName);
-                        lastName.Invoke(i => i.Text = Model.LastName);
-                        gender.Invoke(i => i.Text = Model.Gender);
-                        district.Invoke(i => i.Text = Model.District);
-                        dateOfBirth.Invoke(i => i.Text = Model.DateOfBirth.ToString("dd MMM yyyy"));
-                        chief.Invoke(i => i.Text = Model.Chief);
-                        village.Invoke(i => i.Text = Model.Village);
-                        placeOfBirth.Invoke(i => i.Text = Model.PlaceOfBirth);
-                        detilsPulled = true;
-                    }
-                }                
-                scannerDisplay.Invoke(s => { s.Text = "Fingerprint Captured."; s.ForeColor = Color.Green; });
+            device.FingerDetected +=Device_FingerDetected;
 
-            };
             device.FingerReleased += (send, eventArgs) =>
             {
                 scannerDisplay.Invoke(i => i.Text = "Finger Released.");
@@ -91,6 +54,46 @@ namespace CRS.Client
             device.SwitchLedState(false, true);
             device.SwitchLedState(false, false);
         }
+
+        private async void Device_FingerDetected(object sender, EventArgs e)
+        {
+            scannerDisplay.Invoke(s => { s.Text = "Finger Detected."; s.ForeColor = Color.Green; });
+            device.SwitchLedState(true, false);
+            // Save fingerprint to temporary folder
+            var fingerprint = device.ReadFingerprint();
+            scannerDisplay.Invoke(s => { s.Text = "Release Finger."; s.ForeColor = Color.Red; });
+            var tempFile = Path.GetTempFileName();
+            var tmpBmpFile = Path.ChangeExtension(tempFile, "bmp");
+            fingerprint.Save(tmpBmpFile);
+            fingerImage.Invoke(i => i.Image = Image.FromFile(tmpBmpFile));
+            var image = Image.FromFile(tmpBmpFile);
+            if (!detilsPulled)
+            {
+                mainLabel.Invoke(s => { s.Text = "Please wait...."; s.ForeColor = Color.Green; });
+                Model = await suspectService.GetDetails((Bitmap)image);
+                if (Model== null)
+                {
+                    mainLabel.Invoke(s => { s.Text = "Details not found."; s.ForeColor = Color.Red; });
+                    suspectService = new();
+                }
+                else
+                {
+                    mainLabel.Invoke(s => { s.Text = "Details  found."; s.ForeColor = Color.Green; });
+                    nrcNumber.Invoke(i => i.Text = Model.NRC);
+                    firstName.Invoke(i => i.Text = Model.FirstName);
+                    lastName.Invoke(i => i.Text = Model.LastName);
+                    gender.Invoke(i => i.Text = Model.Gender);
+                    district.Invoke(i => i.Text = Model.District);
+                    dateOfBirth.Invoke(i => i.Text = Model.DateOfBirth.ToString("dd MMM yyyy"));
+                    chief.Invoke(i => i.Text = Model.Chief);
+                    village.Invoke(i => i.Text = Model.Village);
+                    placeOfBirth.Invoke(i => i.Text = Model.PlaceOfBirth);
+                    detilsPulled = true;
+                }
+            }
+            scannerDisplay.Invoke(s => { s.Text = "Fingerprint Captured."; s.ForeColor = Color.Green; });
+        }
+
         private void groupBox2_Enter(object sender, EventArgs e)
         {
 
@@ -98,7 +101,7 @@ namespace CRS.Client
 
         private async void button2_Click(object sender, EventArgs e)
         {
-            if(suspect.Bytes.Count<10)
+            if (suspect.Bytes.Count<10)
             {
                 MessageBox.Show("Capture all 10 fingers first.");
                 return;
@@ -110,7 +113,7 @@ namespace CRS.Client
             suspect.Occupation = occupation.Text;
             suspect.EyeColor = occupation.Text;
             var trySave = await suspectService.Add(suspect);
-            if(trySave.Succeeded)
+            if (trySave.Succeeded)
             {
                 MessageBox.Show("Saved");
                 Close();
@@ -133,7 +136,8 @@ namespace CRS.Client
             {
                 return;
             }
-            device.StopFingerDetection();            
+            device.StopFingerDetection();
+            device.FingerDetected -=Device_FingerDetected;
             var connect = deviceAccessor.AccessFingerprintDevice();
             if (!connect.Succeeded)
             {
@@ -142,21 +146,22 @@ namespace CRS.Client
 
             }
             var dev = connect.Data;
-            dev.FingerDetected +=(sendr,args)=> {
+            dev.FingerDetected +=(sendr, args) =>
+            {
                 device.SwitchLedState(true, false);
                 // Save fingerprint to temporary folder
                 var fingerprint = device.ReadFingerprint();
                 scannerDisplay.Invoke(s => { s.Text = "Release Finger."; s.ForeColor = Color.Red; });
                 var tempFile = Path.GetTempFileName();
                 var tmpBmpFile = Path.ChangeExtension(tempFile, "bmp");
-                fingerprint.Save(tmpBmpFile);
-                fingerImage1.Invoke(i => i.Image = Image.FromFile(tmpBmpFile));
+                fingerprint.Save(tmpBmpFile);                 
                 var image = Image.FromFile(tmpBmpFile);
-                if(suspect.Bytes.Any())
+                if (suspect.Bytes.Any())
                 {
                     suspect.Bytes.RemoveAt(0);
                 }
                 suspect.Bytes.Add(image.ToByteArray());
+                fingerImage1.Invoke(i => i.Image = Image.FromStream(new MemoryStream(suspect.Bytes[0])));
             };
             dev.StartFingerDetection();
             dev.SwitchLedState(false, true);
@@ -170,6 +175,7 @@ namespace CRS.Client
                 return;
             }
             device.StopFingerDetection();
+            device.FingerDetected -=Device_FingerDetected;
             var connect = deviceAccessor.AccessFingerprintDevice();
             if (!connect.Succeeded)
             {
@@ -178,7 +184,8 @@ namespace CRS.Client
 
             }
             var dev = connect.Data;
-            dev.FingerDetected +=(sendr, args) => {
+            dev.FingerDetected +=(sendr, args) =>
+            {
                 device.SwitchLedState(true, false);
                 // Save fingerprint to temporary folder
                 var fingerprint = device.ReadFingerprint();
@@ -186,13 +193,14 @@ namespace CRS.Client
                 var tempFile = Path.GetTempFileName();
                 var tmpBmpFile = Path.ChangeExtension(tempFile, "bmp");
                 fingerprint.Save(tmpBmpFile);
-                fingerImage2.Invoke(i => i.Image = Image.FromFile(tmpBmpFile));
+               // fingerImage2.Invoke(i => i.Image = Image.FromFile(tmpBmpFile));
                 var image = Image.FromFile(tmpBmpFile);
                 if (suspect.Bytes.Count <1)
                 {
                     suspect.Bytes.RemoveAt(1);
                 }
                 suspect.Bytes.Add(image.ToByteArray());
+                fingerImage2.Invoke(i => i.Image = Image.FromStream(new MemoryStream(suspect.Bytes[1])));
             };
             dev.StartFingerDetection();
             dev.SwitchLedState(false, true);
@@ -206,6 +214,7 @@ namespace CRS.Client
                 return;
             }
             device.StopFingerDetection();
+            device.FingerDetected -=Device_FingerDetected;
             var connect = deviceAccessor.AccessFingerprintDevice();
             if (!connect.Succeeded)
             {
@@ -214,7 +223,8 @@ namespace CRS.Client
 
             }
             var dev = connect.Data;
-            dev.FingerDetected +=(sendr, args) => {
+            dev.FingerDetected +=(sendr, args) =>
+            {
                 device.SwitchLedState(true, false);
                 // Save fingerprint to temporary folder
                 var fingerprint = device.ReadFingerprint();
@@ -222,13 +232,14 @@ namespace CRS.Client
                 var tempFile = Path.GetTempFileName();
                 var tmpBmpFile = Path.ChangeExtension(tempFile, "bmp");
                 fingerprint.Save(tmpBmpFile);
-                fingerImage3.Invoke(i => i.Image = Image.FromFile(tmpBmpFile));
+                //fingerImage3.Invoke(i => i.Image = Image.FromFile(tmpBmpFile));
                 var image = Image.FromFile(tmpBmpFile);
                 if (suspect.Bytes.Count <2)
                 {
                     suspect.Bytes.RemoveAt(2);
                 }
                 suspect.Bytes.Add(image.ToByteArray());
+                fingerImage3.Invoke(i => i.Image = Image.FromStream(new MemoryStream(suspect.Bytes[2])));
             };
             dev.StartFingerDetection();
             dev.SwitchLedState(false, true);
@@ -242,6 +253,7 @@ namespace CRS.Client
                 return;
             }
             device.StopFingerDetection();
+            device.FingerDetected -=Device_FingerDetected;
             var connect = deviceAccessor.AccessFingerprintDevice();
             if (!connect.Succeeded)
             {
@@ -250,7 +262,8 @@ namespace CRS.Client
 
             }
             var dev = connect.Data;
-            dev.FingerDetected +=(sendr, args) => {
+            dev.FingerDetected +=(sendr, args) =>
+            {
                 device.SwitchLedState(true, false);
                 // Save fingerprint to temporary folder
                 var fingerprint = device.ReadFingerprint();
@@ -258,13 +271,14 @@ namespace CRS.Client
                 var tempFile = Path.GetTempFileName();
                 var tmpBmpFile = Path.ChangeExtension(tempFile, "bmp");
                 fingerprint.Save(tmpBmpFile);
-                fingerImage4.Invoke(i => i.Image = Image.FromFile(tmpBmpFile));
+                //fingerImage4.Invoke(i => i.Image = Image.FromFile(tmpBmpFile));
                 var image = Image.FromFile(tmpBmpFile);
                 if (suspect.Bytes.Count <3)
                 {
                     suspect.Bytes.RemoveAt(3);
                 }
                 suspect.Bytes.Add(image.ToByteArray());
+                fingerImage4.Invoke(i => i.Image = Image.FromStream(new MemoryStream(suspect.Bytes[3])));
             };
             dev.StartFingerDetection();
             dev.SwitchLedState(false, true);
@@ -278,6 +292,7 @@ namespace CRS.Client
                 return;
             }
             device.StopFingerDetection();
+            device.FingerDetected -=Device_FingerDetected;
             var connect = deviceAccessor.AccessFingerprintDevice();
             if (!connect.Succeeded)
             {
@@ -286,7 +301,8 @@ namespace CRS.Client
 
             }
             var dev = connect.Data;
-            dev.FingerDetected +=(sendr, args) => {
+            dev.FingerDetected +=(sendr, args) =>
+            {
                 device.SwitchLedState(true, false);
                 // Save fingerprint to temporary folder
                 var fingerprint = device.ReadFingerprint();
@@ -294,14 +310,15 @@ namespace CRS.Client
                 var tempFile = Path.GetTempFileName();
                 var tmpBmpFile = Path.ChangeExtension(tempFile, "bmp");
                 fingerprint.Save(tmpBmpFile);
-                fingerImage5.Invoke(i => i.Image = Image.FromFile(tmpBmpFile));
+               //fingerImage5.Invoke(i => i.Image = Image.FromFile(tmpBmpFile));
                 var image = Image.FromFile(tmpBmpFile);
                 if (suspect.Bytes.Count <4)
                 {
                     suspect.Bytes.RemoveAt(4);
                 }
                 suspect.Bytes.Add(image.ToByteArray());
-            };
+                fingerImage5.Invoke(i => i.Image = Image.FromStream(new MemoryStream(suspect.Bytes[4])));
+            };                          
             dev.StartFingerDetection();
             dev.SwitchLedState(false, true);
             dev.SwitchLedState(false, false);
@@ -309,7 +326,12 @@ namespace CRS.Client
 
         private void scanButton6_Click(object sender, EventArgs e)
         {
+            if (!detilsPulled)
+            {
+                return;
+            }
             device.StopFingerDetection();
+            device.FingerDetected -=Device_FingerDetected;
             var connect = deviceAccessor.AccessFingerprintDevice();
             if (!connect.Succeeded)
             {
@@ -318,7 +340,8 @@ namespace CRS.Client
 
             }
             var dev = connect.Data;
-            dev.FingerDetected +=(sendr, args) => {
+            dev.FingerDetected +=(sendr, args) =>
+            {
                 device.SwitchLedState(true, false);
                 // Save fingerprint to temporary folder
                 var fingerprint = device.ReadFingerprint();
@@ -326,13 +349,14 @@ namespace CRS.Client
                 var tempFile = Path.GetTempFileName();
                 var tmpBmpFile = Path.ChangeExtension(tempFile, "bmp");
                 fingerprint.Save(tmpBmpFile);
-                fingerImage6.Invoke(i => i.Image = Image.FromFile(tmpBmpFile));
+                //fingerImage6.Invoke(i => i.Image = Image.FromFile(tmpBmpFile));
                 var image = Image.FromFile(tmpBmpFile);
                 if (suspect.Bytes.Count <5)
                 {
                     suspect.Bytes.RemoveAt(5);
                 }
                 suspect.Bytes.Add(image.ToByteArray());
+                fingerImage6.Invoke(i => i.Image = Image.FromStream(new MemoryStream(suspect.Bytes[5])));
             };
             dev.StartFingerDetection();
             dev.SwitchLedState(false, true);
@@ -346,6 +370,7 @@ namespace CRS.Client
                 return;
             }
             device.StopFingerDetection();
+            device.FingerDetected -=Device_FingerDetected;
             var connect = deviceAccessor.AccessFingerprintDevice();
             if (!connect.Succeeded)
             {
@@ -354,7 +379,8 @@ namespace CRS.Client
 
             }
             var dev = connect.Data;
-            dev.FingerDetected +=(sendr, args) => {
+            dev.FingerDetected +=(sendr, args) =>
+            {
                 device.SwitchLedState(true, false);
                 // Save fingerprint to temporary folder
                 var fingerprint = device.ReadFingerprint();
@@ -362,13 +388,14 @@ namespace CRS.Client
                 var tempFile = Path.GetTempFileName();
                 var tmpBmpFile = Path.ChangeExtension(tempFile, "bmp");
                 fingerprint.Save(tmpBmpFile);
-                fingerImage7.Invoke(i => i.Image = Image.FromFile(tmpBmpFile));
+                //fingerImage7.Invoke(i => i.Image = Image.FromFile(tmpBmpFile));
                 var image = Image.FromFile(tmpBmpFile);
                 if (suspect.Bytes.Count <6)
                 {
                     suspect.Bytes.RemoveAt(6);
                 }
                 suspect.Bytes.Add(image.ToByteArray());
+                fingerImage7.Invoke(i => i.Image = Image.FromStream(new MemoryStream(suspect.Bytes[6])));
             };
             dev.StartFingerDetection();
             dev.SwitchLedState(false, true);
@@ -382,6 +409,7 @@ namespace CRS.Client
                 return;
             }
             device.StopFingerDetection();
+            device.FingerDetected -=Device_FingerDetected;
             var connect = deviceAccessor.AccessFingerprintDevice();
             if (!connect.Succeeded)
             {
@@ -390,7 +418,8 @@ namespace CRS.Client
 
             }
             var dev = connect.Data;
-            dev.FingerDetected +=(sendr, args) => {
+            dev.FingerDetected +=(sendr, args) =>
+            {
                 device.SwitchLedState(true, false);
                 // Save fingerprint to temporary folder
                 var fingerprint = device.ReadFingerprint();
@@ -398,13 +427,14 @@ namespace CRS.Client
                 var tempFile = Path.GetTempFileName();
                 var tmpBmpFile = Path.ChangeExtension(tempFile, "bmp");
                 fingerprint.Save(tmpBmpFile);
-                fingerImage8.Invoke(i => i.Image = Image.FromFile(tmpBmpFile));
+                //fingerImage8.Invoke(i => i.Image = Image.FromFile(tmpBmpFile));
                 var image = Image.FromFile(tmpBmpFile);
                 if (suspect.Bytes.Count <7)
                 {
                     suspect.Bytes.RemoveAt(7);
                 }
                 suspect.Bytes.Add(image.ToByteArray());
+                fingerImage8.Invoke(i => i.Image = Image.FromStream(new MemoryStream(suspect.Bytes[7])));
             };
             dev.StartFingerDetection();
             dev.SwitchLedState(false, true);
@@ -418,6 +448,7 @@ namespace CRS.Client
                 return;
             }
             device.StopFingerDetection();
+            device.FingerDetected -=Device_FingerDetected;
             var connect = deviceAccessor.AccessFingerprintDevice();
             if (!connect.Succeeded)
             {
@@ -426,7 +457,8 @@ namespace CRS.Client
 
             }
             var dev = connect.Data;
-            dev.FingerDetected +=(sendr, args) => {
+            dev.FingerDetected +=(sendr, args) =>
+            {
                 device.SwitchLedState(true, false);
                 // Save fingerprint to temporary folder
                 var fingerprint = device.ReadFingerprint();
@@ -434,13 +466,14 @@ namespace CRS.Client
                 var tempFile = Path.GetTempFileName();
                 var tmpBmpFile = Path.ChangeExtension(tempFile, "bmp");
                 fingerprint.Save(tmpBmpFile);
-                fingerImage9.Invoke(i => i.Image = Image.FromFile(tmpBmpFile));
+               // fingerImage9.Invoke(i => i.Image = Image.FromFile(tmpBmpFile));
                 var image = Image.FromFile(tmpBmpFile);
                 if (suspect.Bytes.Count <8)
                 {
                     suspect.Bytes.RemoveAt(8);
                 }
                 suspect.Bytes.Add(image.ToByteArray());
+                fingerImage9.Invoke(i => i.Image = Image.FromStream(new MemoryStream(suspect.Bytes[8])));
             };
             dev.StartFingerDetection();
             dev.SwitchLedState(false, true);
@@ -454,6 +487,7 @@ namespace CRS.Client
                 return;
             }
             device.StopFingerDetection();
+            device.FingerDetected -=Device_FingerDetected;
             var connect = deviceAccessor.AccessFingerprintDevice();
             if (!connect.Succeeded)
             {
@@ -462,7 +496,8 @@ namespace CRS.Client
 
             }
             var dev = connect.Data;
-            dev.FingerDetected +=(sendr, args) => {
+            dev.FingerDetected +=(sendr, args) =>
+            {
                 device.SwitchLedState(true, false);
                 // Save fingerprint to temporary folder
                 var fingerprint = device.ReadFingerprint();
@@ -470,13 +505,14 @@ namespace CRS.Client
                 var tempFile = Path.GetTempFileName();
                 var tmpBmpFile = Path.ChangeExtension(tempFile, "bmp");
                 fingerprint.Save(tmpBmpFile);
-                fingerImage10.Invoke(i => i.Image = Image.FromFile(tmpBmpFile));
+               // fingerImage10.Invoke(i => i.Image = Image.FromFile(tmpBmpFile));
                 var image = Image.FromFile(tmpBmpFile);
                 if (suspect.Bytes.Count <9)
                 {
                     suspect.Bytes.RemoveAt(9);
                 }
                 suspect.Bytes.Add(image.ToByteArray());
+                fingerImage10.Invoke(i => i.Image = Image.FromStream(new MemoryStream(suspect.Bytes[9])));
             };
             dev.StartFingerDetection();
             dev.SwitchLedState(false, true);
