@@ -79,6 +79,7 @@ namespace CRS.Client
                 }
                 else
                 {
+                    var img = image.Clone();
                     if(pictureBox==null)
                     {
                         MessageBox.Show("Click on the finger to scan.");
@@ -87,7 +88,7 @@ namespace CRS.Client
                     pictureBox.Image = image;
                     if (suspect.Bytes.Count<11)
                     {
-                        suspect.Bytes.Add(image.ToByteArray());
+                        suspect.Bytes.Add(((Image)img).ToByteArray());
                     }
                     else
                     {
