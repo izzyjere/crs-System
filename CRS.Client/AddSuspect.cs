@@ -116,9 +116,30 @@ namespace CRS.Client
 
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private async void button2_Click(object sender, EventArgs e)
         {
-
+            if(suspect.Bytes.Count!=10)
+            {
+                MessageBox.Show("Capture all 10 fingers first.");
+                return;
+            }
+            suspect.Name = Model.FirstName + " "+ Model.LastName;
+            suspect.NRC = Model.NRC;
+            suspect.PhysicalAddress = address.Text;
+            suspect.Complexion = complexion.Text;
+            suspect.Occupation = occupation.Text;
+            suspect.EyeColor = occupation.Text;
+            var trySave = await suspectService.Add(suspect);
+            if(trySave.Succeeded)
+            {
+                MessageBox.Show("Saved");
+                Close();
+            }
+            else
+            {
+                MessageBox.Show("Could not save. Check if all info was added correctly.");
+                return;
+            }
         }
 
         private void button1_Click(object sender, EventArgs e)

@@ -5,7 +5,7 @@ namespace CRS.Domain
 {
     public class SuspectRequest
     {
-        public  int  CitizenId { get; set; }  
+       
         public List<byte[]> Bytes { get; set; }
         public string EyeColor { get; set; }
         public string NRC { get; set; }

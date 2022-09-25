@@ -116,7 +116,7 @@ namespace CRS.Client.Services
         }
         public async Task<IResult> Add(SuspectRequest suspect)
         {
-            httpClient.BaseAddress = new Uri("");
+            httpClient.BaseAddress = new Uri("https://localhost:5002/");
             var response = await httpClient.PostAsJsonAsync("api/suspects", suspect);
             if(response.IsSuccessStatusCode)
             {
