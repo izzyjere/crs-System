@@ -51,7 +51,7 @@ app.MapPost("/api/suspects", (DatabaseContext db, [FromBody] SuspectRequest requ
     };
     foreach (var data in request.Bytes)
     {
-        suspect.Biometrics.Add(new Biometric());
+        suspect.Biometrics.Add(new Biometric() { Data = data});
        
     }
     db.Suspects.Add(suspect);
