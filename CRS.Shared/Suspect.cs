@@ -10,6 +10,7 @@ namespace CRS.Shared
         [Key]
         public int Id { get; set; }
         public string NRC { get; set; } 
+        public string  Name { get; set; } 
         public string Complexion { get; set; }
         public string EyeColor { get; set; }
         public string Occupation { get; set; }

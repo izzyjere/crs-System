@@ -67,7 +67,7 @@
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(171, 111);
             this.button2.TabIndex = 3;
-            this.button2.Text = "Open a Case";
+            this.button2.Text = "Cases";
             this.button2.UseVisualStyleBackColor = false;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
@@ -105,7 +105,7 @@
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(171, 111);
             this.button6.TabIndex = 3;
-            this.button6.Text = "Add Judgement";
+            this.button6.Text = "Judgements";
             this.button6.UseVisualStyleBackColor = false;
             this.button6.Click += new System.EventHandler(this.button2_Click);
             // 

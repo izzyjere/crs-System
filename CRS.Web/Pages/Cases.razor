@@ -1,0 +1,46 @@
+﻿@page "/cases"
+@using CRS.Shared
+@using Microsoft.EntityFrameworkCore
+@inject DatabaseContext db
+
+<MudTable Bordered Striped Hover Items="@cases">
+    <ToolBarContent>
+        <MudText Color="Color.Primary" Typo="Typo.h5">Cases</MudText>
+        <MudSpacer />
+        <MudButton Color="Color.Primary" Variant="Variant.Filled" StartIcon="@Icons.Material.Filled.Add">Open a Case</MudButton>
+        <MudTextField @bind-Value="searchString1" Placeholder="Search" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
+    </ToolBarContent>
+    <HeaderContent>
+        <MudTh>Date</MudTh>
+        <MudTh>Case No.</MudTh>
+        <MudTh>Police Station</MudTh>
+        <MudTh>Suspect</MudTh>
+        <MudTh>Offense</MudTh>        
+        <MudTh>Officer</MudTh>        
+        <MudTh>Actions</MudTh>
+    </HeaderContent>
+    <RowTemplate>
+        <MudTd>@context.Date.ToString("dd MMM yyyy H:mm")</MudTd>
+        <MudTd>@context.Id</MudTd>
+        <MudTd>@context.PoliceStation</MudTd>
+        <MudTd>@context.Suspect?.Name</MudTd>
+        <MudTd>@context.Offense</MudTd>
+        <MudTd>@context.OpenedBy</MudTd>        
+        <MudTd>
+            <MudButton Color="Color.Warning">Edit</MudButton>
+            <MudButton Color="Color.Primary">Delete</MudButton>
+        </MudTd>
+    </RowTemplate>
+    <PagerContent>
+        <MudTablePager />
+    </PagerContent>
+</MudTable>
+@code
+{
+    List<Case> cases = new();
+    private string searchString1 = "";
+    protected override void OnInitialized()
+    {
+        cases = db.Cases.Include(c => c.Suspect).ToList();
+    }
+}
