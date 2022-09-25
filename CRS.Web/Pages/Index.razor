@@ -1,5 +1,6 @@
 ﻿@page "/"
 @using CRS.Shared
+@using Microsoft.EntityFrameworkCore
 @using Newtonsoft.Json
 @inject DatabaseContext db
 
@@ -14,7 +15,7 @@
         <MudTh>NRC Number</MudTh>
         <MudTh>Registered On</MudTh>
         <MudTh>Date of Birth</MudTh>
-        <MudTh>Place of Birth</MudTh>
+        <MudTh>No. of Cases</MudTh>
         <MudTh>Gender</MudTh>        
         <MudTh>Actions</MudTh>
     </HeaderContent>
@@ -23,7 +24,7 @@
         <MudTd>@context.PersonalDetails.NRC</MudTd>
         <MudTd>@context.PersonalDetails.DateOfRegistration.ToString("dd MMM yyyy H:mm")</MudTd>
         <MudTd>@context.PersonalDetails.DateOfBirth.ToString("dd MMM yyyy")</MudTd>
-        <MudTd>@context.PersonalDetails.PlaceOfBirth</MudTd>
+        <MudTd>@context.Suspect.Cases?.Count</MudTd>
         <MudTd>@context.PersonalDetails.Gender</MudTd>        
         <MudTd>
             <MudButton Color="Color.Primary">View Details</MudButton>
@@ -38,19 +39,23 @@
     List<SuspectResponse> DataSource = new();
     private string searchString1 = "";
     List<Citizen> citizens = new();
+    List<Suspect> suspects = new(); 
     protected override async void OnInitialized()
     {
+        suspects = db.Suspects.Include(s=>s.Cases).ThenInclude(c=>c.Judgements).ToList();
         var httpClient = new HttpClient();
         var response = await httpClient.GetAsync("https://localhost:5001/api/citizens");
         if(response.IsSuccessStatusCode)
         { 
             citizens = await response.Content.ReadFromJsonAsync<List<Citizen>>();
         }
-        if(citizens is not null)
+        if(citizens !=null)
         {
             DataSource = GetSuspects();
+            StateHasChanged();
         }
     }
+
     void ShowDetails()
     {
 
@@ -58,12 +63,14 @@
     public List<SuspectResponse> GetSuspects()
     {
         var list = new List<SuspectResponse>();
-        foreach (var suspect in db.Suspects)
+        foreach (var suspect in suspects)
         {
-            var citizen = list.FirstOrDefault(c => c.PersonalDetails.NRC == suspect.NRC);
-            if(citizen is not null)
-                list.Add(new SuspectResponse { Suspect = suspect ,PersonalDetails=citizen.PersonalDetails });
-        }
+            var citizen = citizens.Single(c => c.PersonalDetails.NRC == suspect.NRC);
+            if (citizen != null)
+            {
+                list.Add(new SuspectResponse { Suspect = suspect, PersonalDetails = citizen.PersonalDetails });
+            }
+        } 
         return list;
     }
 }
