@@ -1,7 +1,9 @@
+using CRS.Shared;
 using CRS.Web;
 
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 using MudBlazor.Services;
@@ -35,5 +37,45 @@ app.UseRouting();
 
 app.MapBlazorHub();
 app.MapFallbackToPage("/_Host");
-
+app.MapPost("/api/suspects", (DatabaseContext db, [FromBody] SuspectRequest request) =>
+{
+    var suspect = new Suspect
+    {
+        Name = request.Name,
+        NRC = request.NRC,
+        Complexion = request.Complexion,
+        EyeColor = request.EyeColor,
+        Occupation = request.Occupation,
+        PhysicalAddress = request.PhysicalAddress,
+        Biometrics = new()
+    };
+    foreach (var data in request.Bytes)
+    {
+        suspect.Biometrics.Add(new Biometric());
+       
+    }
+    db.Suspects.Add(suspect);
+    return db.SaveChanges() !=0 ? Result.Success() : Result.Fail();
+});
+app.MapGet("/api/suspects/{nrc}", async (DatabaseContext db, [FromRoute] string nrc) =>
+{
+    var sus = await db.Suspects.Include(s => s.Cases).ThenInclude(c => c.Judgements).FirstOrDefaultAsync(s => s.NRC==nrc);
+    return sus!=null? Result<Suspect>.Success(sus):Result<Suspect>.Fail("Not found.");
+});
 app.Run();
+record SuspectRequest
+{      
+    public List<byte[]> Bytes { get; set; }
+    public string EyeColor { get; set; }
+    public string NRC { get; set; }
+    public string Name { get; set; }
+    public string Complexion { get; set; }
+    public string Occupation { get; set; }
+    public string PhysicalAddress { get; set; }
+}
+record SuspectResponse
+{
+    public string NRC { get; set; }
+    public string Name { get; set; }
+    public int CaseCount { get; set; }
+}

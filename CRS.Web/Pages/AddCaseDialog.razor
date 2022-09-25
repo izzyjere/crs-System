@@ -1,0 +1,101 @@
+﻿@using CRS.Shared
+@inject DatabaseContext context
+@inject ISnackbar snackBar
+<MudDialog>
+    <DialogContent>
+        <EditForm id="editForm" Model="@Model" OnValidSubmit="Submit" OnInvalidSubmit='()=>snackBar.Add("Please fill in all required fields.",Severity.Error)'>
+            <DataAnnotationsValidator />
+            <MudGrid Justify="Justify.SpaceBetween" Spacing="2">
+                <MudItem xs="12" sm="6">
+                    <MudTextField @bind-Value="@Model.Offense"
+                                  Label="Offense"
+                                  For="()=>Model.Offense" />
+                </MudItem>
+                <MudItem xs="12" sm="6">
+                    <MudTextField @bind-Value="@Model.PoliceStation"
+                                  Label="Police Station"
+                                  For="()=>Model.PoliceStation" />
+                </MudItem>
+                <MudItem xs="12" sm="6">
+                    <MudTextField @bind-Value="@Model.OpenedBy"
+                                  Label="Officer in Charge"
+                                  For="()=>Model.OpenedBy" />
+                </MudItem>
+                <MudItem xs="12" sm="6">
+                    <MudSelect T="int" Label="Suspect" For="()=>Model.SuspectId" @bind-Value="@Model.SuspectId">
+                        <MudSelectItem T="int" Value="0">Not selected</MudSelectItem>
+                        @foreach (var item in suspects)
+                        {
+                            <MudSelectItem T="int" Value="@item.Id">@item.Name</MudSelectItem>
+                        }
+                    </MudSelect>
+                </MudItem>
+
+            </MudGrid>
+        </EditForm>
+    </DialogContent>
+    <DialogActions>
+        <MudButton Variant="Variant.Text" OnClick="Cancel">Cancel</MudButton>
+        <MudButton UserAttributes="@attributes" Variant="Variant.Filled" ButtonType="ButtonType.Submit" Color="Color.Primary">Save</MudButton>
+    </DialogActions>
+</MudDialog>
+@code {
+    [CascadingParameter] MudDialogInstance Dialog { get; set; }
+    [Parameter] public Case Model { get; set; }
+    [Parameter] public bool IsEditing { get; set; }
+    Dictionary<string, object> attributes;
+
+    List<Suspect> suspects = new();
+    protected override async Task OnInitializedAsync()
+    {
+        attributes = new();
+        attributes.Add("form", "editForm");
+        if (!IsEditing)
+        {
+            Model = new();
+        }
+        else
+        {
+
+        }
+        suspects = context.Suspects.ToList();
+    }
+    void Cancel() => Dialog.Cancel();
+
+    async Task Submit()
+    {
+        if (!IsEditing)
+        {
+            context.Cases.Add(Model);
+
+            if (context.SaveChanges()!=0)
+            {
+                snackBar.Add("Saved.", Severity.Success);
+                Dialog.Close();
+                return;
+            }
+            else
+            {
+                snackBar.Add("An error ocurred.", Severity.Error);
+                return;
+            }
+
+        }
+        else
+        {
+
+            context.Cases.Update(Model);
+            if (context.SaveChanges()!=0)
+            {
+                snackBar.Add("Saved.", Severity.Success);
+                Dialog.Close();
+                return;
+            }
+            else
+            {
+                snackBar.Add("An error ocurred.", Severity.Error);
+                return;
+            }
+        }
+    }
+}
