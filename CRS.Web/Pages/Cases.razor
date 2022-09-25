@@ -28,8 +28,7 @@
         <MudTd>@context.Offense</MudTd>
         <MudTd>@context.OpenedBy</MudTd>        
         <MudTd>
-            <MudButton Color="Color.Warning">Edit</MudButton>
-            <MudButton Color="Color.Primary">Delete</MudButton>
+            <MudButton OnClick="()=>" Color="Color.Warning">Edit</MudButton>            
         </MudTd>
     </RowTemplate>
     <PagerContent>
@@ -43,6 +42,15 @@
     protected override void OnInitialized()
     {
         cases = db.Cases.Include(c => c.Suspect).ToList();
+    }
+    async void Edit(Case record)
+    {
+        var dialog = dialogService.Show<AddCaseDialog>("Editing s Case", new DialogParameters { ["Model"]=record, ["IsEdidting"]=true });
+        var result = await dialog.Result;
+        if (!result.Cancelled)
+        {
+            cases = db.Cases.Include(c => c.Suspect).ToList();
+        }
     }
     async void Add()
     {

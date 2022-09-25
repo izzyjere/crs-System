@@ -1,0 +1,68 @@
+﻿@page "/judgements"
+@using CRS.Shared
+@using Microsoft.EntityFrameworkCore
+@inject DatabaseContext db
+
+<MudTable Bordered Striped Hover Items="@judgements">
+    <ToolBarContent>
+        <MudText Color="Color.Primary" Typo="Typo.h5">Judgements</MudText>
+        <MudSpacer />
+        <MudButton Color="Color.Primary" OnClick="Add" Variant="Variant.Filled" StartIcon="@Icons.Material.Filled.Add">Add a Judgement</MudButton>
+        <MudSpacer />
+        <MudTextField @bind-Value="searchString1" Placeholder="Search" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
+    </ToolBarContent>
+    <HeaderContent>
+        <MudTh>Date</MudTh>
+        <MudTh>Offense</MudTh>
+        <MudTh>Case No.</MudTh>
+        <MudTh>Suspect</MudTh>
+        <MudTh>Court</MudTh>
+        <MudTh>Judge</MudTh>
+        <MudTh>Certifying Officer</MudTh>
+        <MudTh>Verdict</MudTh>
+        <MudTh>Actions</MudTh>
+    </HeaderContent>
+    <RowTemplate>
+        <MudTd>@context.Date.ToString("dd MMM yyyy H:mm")</MudTd>
+        <MudTd>@context.Case?.Offense</MudTd>
+        <MudTd>@context.CaseId</MudTd>
+        <MudTd>@context.Case?.Suspect.Name</MudTd>
+        <MudTd>@context.Court</MudTd>
+        <MudTd>@context.JudgedBy</MudTd>
+        <MudTd>@context.CertifyingOfficer</MudTd>
+        <MudTd>@context.Verdict.ToString()</MudTd>
+        <MudTd>
+            <MudButton OnClick="()=>Edit(context)" Color="Color.Warning">Edit</MudButton>           
+        </MudTd>
+    </RowTemplate>
+    <PagerContent>
+        <MudTablePager />
+    </PagerContent>
+</MudTable>
+@code
+{
+    List<Judgement> judgements = new();
+    private string searchString1 = "";
+    protected override void OnInitialized()
+    {
+        judgements = db.Judgements.Include(c => c.Case).ThenInclude(c=>c.Suspect).ToList();
+    }
+    async void Add()
+    {
+        var dialog = dialogService.Show<AddJudgementDialog>("Open a Judgement");
+        var result = await dialog.Result;
+        if (!result.Cancelled)
+        {
+            judgements = db.Judgements.Include(c => c.Case).ThenInclude(c => c.Suspect).ToList();
+        }
+    }
+    async void Edit(Judgement record)
+    {
+        var dialog = dialogService.Show<AddJudgementDialog>("Edit",new DialogParameters{["Model"]=record,["IsEdidting"]=true});
+        var result = await dialog.Result;
+        if (!result.Cancelled)
+        {
+            judgements = db.Judgements.Include(c => c.Case).ThenInclude(c => c.Suspect).ToList();
+        }
+    }
+}
