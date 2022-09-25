@@ -111,7 +111,7 @@ namespace CRS.Client
             suspect.PhysicalAddress = address.Text;
             suspect.Complexion = complexion.Text;
             suspect.Occupation = occupation.Text;
-            suspect.EyeColor = occupation.Text;
+            suspect.EyeColor = eyeColor.Text;
             var trySave = await suspectService.Add(suspect);
             if (trySave.Succeeded)
             {

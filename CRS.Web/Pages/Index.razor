@@ -16,7 +16,7 @@
         <MudTh>Registered On</MudTh>
         <MudTh>Date of Birth</MudTh>
         <MudTh>No. of Cases</MudTh>
-        <MudTh>Gender</MudTh>        
+        <MudTh>Gender</MudTh>
         <MudTh>Actions</MudTh>
     </HeaderContent>
     <RowTemplate>
@@ -25,9 +25,9 @@
         <MudTd>@context.PersonalDetails.DateOfRegistration.ToString("dd MMM yyyy H:mm")</MudTd>
         <MudTd>@context.PersonalDetails.DateOfBirth.ToString("dd MMM yyyy")</MudTd>
         <MudTd>@context.Suspect.Cases?.Count</MudTd>
-        <MudTd>@context.PersonalDetails.Gender</MudTd>        
+        <MudTd>@context.PersonalDetails.Gender</MudTd>
         <MudTd>
-            <MudButton Color="Color.Primary">View Details</MudButton>
+            <MudButton OnClick="()=>ShowDetails(context)" Color="Color.Primary">View Details</MudButton>
         </MudTd>
     </RowTemplate>
     <PagerContent>
@@ -39,26 +39,37 @@
     List<SuspectResponse> DataSource = new();
     private string searchString1 = "";
     List<Citizen> citizens = new();
-    List<Suspect> suspects = new(); 
+    List<Suspect> suspects = new();
     protected override async void OnInitialized()
     {
-        suspects = db.Suspects.Include(s=>s.Cases).ThenInclude(c=>c.Judgements).ToList();
+        suspects = db.Suspects.Include(s => s.Cases).ThenInclude(c => c.Judgements).ToList();
         var httpClient = new HttpClient();
-        var response = await httpClient.GetAsync("https://localhost:5001/api/citizens");
-        if(response.IsSuccessStatusCode)
-        { 
-            citizens = await response.Content.ReadFromJsonAsync<List<Citizen>>();
-        }
-        if(citizens !=null)
+        try
         {
-            DataSource = GetSuspects();
-            StateHasChanged();
+            var response = await httpClient.GetAsync("https://localhost:5001/api/citizens");
+            if (response.IsSuccessStatusCode)
+            {
+                citizens = await response.Content.ReadFromJsonAsync<List<Citizen>>();
+            }
+            if (citizens !=null)
+            {
+                DataSource = GetSuspects();
+                StateHasChanged();
+            }
+
         }
+        catch (Exception)
+        {
+            snackbar.Add("National registration api must be down or off.", Severity.Error);
+        }
+
     }
-
-    void ShowDetails()
+    [Inject] ISnackbar snackbar{ get; set; }
+    async void ShowDetails(SuspectResponse model)
     {
-
+        var options = new DialogOptions { MaxWidth= MaxWidth.Medium, FullWidth=true, Position=DialogPosition.TopCenter };
+        var dialog = dialogService.Show<DetailsModal>("Details", new DialogParameters { ["Model"]=model }, options);
+        await dialog.Result;
     }
     public List<SuspectResponse> GetSuspects()
     {
@@ -70,7 +81,7 @@
             {
                 list.Add(new SuspectResponse { Suspect = suspect, PersonalDetails = citizen.PersonalDetails });
             }
-        } 
+        }
         return list;
     }
 }

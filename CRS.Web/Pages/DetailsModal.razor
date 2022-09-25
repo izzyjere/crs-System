@@ -1,0 +1,107 @@
+﻿<MudDialog>
+    <DialogContent>
+        <MudPaper MaxHeight="500px" Class="overflow-auto">
+        <MudExpansionPanels>
+            <MudExpansionPanel>
+                <TitleContent>
+                    <MudText Typo="Typo.h6">Personal Details</MudText>
+                </TitleContent>
+                <ChildContent>
+                    <MudSimpleTable FixedHeader Dense Class="overflow-auto" Bordered Hover Striped Elevation="24">
+                        <thead>
+                            <tr>
+                                <th />
+                                <th />
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Surname:</td>
+                                <td>@Model.PersonalDetails.LastName</td>
+                            </tr>
+                            <tr>
+                                <td>Middle Name:</td>
+                                <td>@Model.PersonalDetails.MiddleName</td>
+                            </tr>
+                            <tr>
+                                <td>First Name:</td>
+                                <td>@Model.PersonalDetails.FirstName</td>
+                            </tr>
+                            <tr>
+                                <td>Date of Birth:</td>
+                                <td>@Convert.ToDateTime(Model.PersonalDetails.DateOfBirth).ToShortDateString()</td>
+                            </tr>
+                            <tr>
+                                <td>Gender:</td>
+                                <td>@Model.PersonalDetails.Gender</td>
+                            </tr>
+                            <tr>
+                                <td>NRC Number:</td>
+                                <td>@Model.PersonalDetails.NRC</td>
+                            </tr>
+                            <tr>
+                                <td>Occupation:</td>
+                                <td>@Model.Suspect.Occupation</td>
+                            </tr>
+                            <tr>
+                                <td>Eye Color:</td>
+                                <td>@Model.Suspect.EyeColor</td>
+                            </tr>
+                            <tr>
+                                <td>Complexion:</td>
+                                <td>@Model.Suspect.Complexion</td>
+                            </tr>
+                            <tr>
+                                <td>Place of Birth:</td>
+                                <td>@Model.PersonalDetails.PlaceOfBirth </td>
+                            </tr>
+                            <tr>
+                                <td>Chief:</td>
+                                <td>@Model.PersonalDetails.Chief</td>
+                            </tr>
+                            <tr>
+                                <td>Village</td>
+                                <td>@Model.PersonalDetails.Village</td>
+                            </tr>
+                            <tr>
+                                <td>District:</td>
+                                <td>@Model.PersonalDetails.District</td>
+                            </tr>
+                            <tr>
+                                <td>Physical Address</td>
+                                <td>@Model.Suspect.PhysicalAddress</td>
+                            </tr>
+                        </tbody>
+                    </MudSimpleTable>
+                </ChildContent>
+            </MudExpansionPanel>  
+            <MudExpansionPanel>
+                <TitleContent>
+                    <MudText Typo="Typo.h6">Biometrics</MudText>
+                </TitleContent>
+                <ChildContent>
+                    <MudPaper Elevation="24">
+                        <MudGrid>
+                            @foreach (var fingerPrint in Model.Suspect.Biometrics)
+                            {
+                                <MudItem xs="3">
+                                    <MudImage Elevation="25" Height="200" Width="170" ObjectFit="ObjectFit.Fill" Src='@($"data:image/png;base64,{Convert.ToBase64String(fingerPrint.Data)}")' />
+
+                                </MudItem>
+                            }
+                        </MudGrid>
+                    </MudPaper>
+                </ChildContent>
+            </MudExpansionPanel>
+        </MudExpansionPanels>
+        </MudPaper>
+    </DialogContent>
+    <DialogActions>
+        <MudButton OnClick="()=>Dialog.Close()" Color="Color.Secondary">Close</MudButton>
+    </DialogActions>
+</MudDialog>
+
+@code {
+    [CascadingParameter] MudDialogInstance Dialog { get; set; }
+    [Parameter] public SuspectResponse? Model { get; set; }
+}
