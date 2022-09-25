@@ -64,36 +64,46 @@
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.pictureBox4 = new System.Windows.Forms.PictureBox();
-            this.pictureBox3 = new System.Windows.Forms.PictureBox();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.fingerImage5 = new System.Windows.Forms.PictureBox();
+            this.fingerImage4 = new System.Windows.Forms.PictureBox();
+            this.fingerImage3 = new System.Windows.Forms.PictureBox();
+            this.fingerImage2 = new System.Windows.Forms.PictureBox();
             this.fingerImage1 = new System.Windows.Forms.PictureBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.pictureBox5 = new System.Windows.Forms.PictureBox();
-            this.pictureBox6 = new System.Windows.Forms.PictureBox();
-            this.pictureBox7 = new System.Windows.Forms.PictureBox();
-            this.pictureBox8 = new System.Windows.Forms.PictureBox();
-            this.pictureBox9 = new System.Windows.Forms.PictureBox();
+            this.fingerImage10 = new System.Windows.Forms.PictureBox();
+            this.fingerImage9 = new System.Windows.Forms.PictureBox();
+            this.fingerImage8 = new System.Windows.Forms.PictureBox();
+            this.fingerImage7 = new System.Windows.Forms.PictureBox();
+            this.fingerImage6 = new System.Windows.Forms.PictureBox();
             this.button2 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
+            this.scanButton1 = new System.Windows.Forms.Button();
+            this.scanButton2 = new System.Windows.Forms.Button();
+            this.scanButton3 = new System.Windows.Forms.Button();
+            this.scanButton4 = new System.Windows.Forms.Button();
+            this.scanButton5 = new System.Windows.Forms.Button();
+            this.scanButton6 = new System.Windows.Forms.Button();
+            this.scanButton7 = new System.Windows.Forms.Button();
+            this.scanButton8 = new System.Windows.Forms.Button();
+            this.scanButton9 = new System.Windows.Forms.Button();
+            this.scanButton10 = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.fingerImage)).BeginInit();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.fingerImage5)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.fingerImage4)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.fingerImage3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.fingerImage2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.fingerImage1)).BeginInit();
             this.tabPage2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox7)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox8)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox9)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.fingerImage10)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.fingerImage9)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.fingerImage8)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.fingerImage7)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.fingerImage6)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -442,10 +452,15 @@
             // 
             // tabPage1
             // 
-            this.tabPage1.Controls.Add(this.pictureBox4);
-            this.tabPage1.Controls.Add(this.pictureBox3);
-            this.tabPage1.Controls.Add(this.pictureBox2);
-            this.tabPage1.Controls.Add(this.pictureBox1);
+            this.tabPage1.Controls.Add(this.scanButton5);
+            this.tabPage1.Controls.Add(this.scanButton4);
+            this.tabPage1.Controls.Add(this.scanButton3);
+            this.tabPage1.Controls.Add(this.scanButton2);
+            this.tabPage1.Controls.Add(this.scanButton1);
+            this.tabPage1.Controls.Add(this.fingerImage5);
+            this.tabPage1.Controls.Add(this.fingerImage4);
+            this.tabPage1.Controls.Add(this.fingerImage3);
+            this.tabPage1.Controls.Add(this.fingerImage2);
             this.tabPage1.Controls.Add(this.fingerImage1);
             this.tabPage1.Location = new System.Drawing.Point(4, 25);
             this.tabPage1.Name = "tabPage1";
@@ -455,68 +470,68 @@
             this.tabPage1.Text = "RightHand";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
-            // pictureBox4
+            // fingerImage5
             // 
-            this.pictureBox4.Image = global::CRS.Client.Properties.Resources.finger;
-            this.pictureBox4.Location = new System.Drawing.Point(614, 29);
-            this.pictureBox4.Name = "pictureBox4";
-            this.pictureBox4.Size = new System.Drawing.Size(108, 126);
-            this.pictureBox4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox4.TabIndex = 1;
-            this.pictureBox4.TabStop = false;
-            
+            this.fingerImage5.Image = global::CRS.Client.Properties.Resources.finger;
+            this.fingerImage5.Location = new System.Drawing.Point(614, 39);
+            this.fingerImage5.Name = "fingerImage5";
+            this.fingerImage5.Size = new System.Drawing.Size(108, 126);
+            this.fingerImage5.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.fingerImage5.TabIndex = 1;
+            this.fingerImage5.TabStop = false;
             // 
-            // pictureBox3
+            // fingerImage4
             // 
-            this.pictureBox3.Image = global::CRS.Client.Properties.Resources.finger;
-            this.pictureBox3.Location = new System.Drawing.Point(447, 29);
-            this.pictureBox3.Name = "pictureBox3";
-            this.pictureBox3.Size = new System.Drawing.Size(108, 126);
-            this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox3.TabIndex = 2;
-            this.pictureBox3.TabStop = false;
-           
+            this.fingerImage4.Image = global::CRS.Client.Properties.Resources.finger;
+            this.fingerImage4.Location = new System.Drawing.Point(447, 39);
+            this.fingerImage4.Name = "fingerImage4";
+            this.fingerImage4.Size = new System.Drawing.Size(108, 126);
+            this.fingerImage4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.fingerImage4.TabIndex = 2;
+            this.fingerImage4.TabStop = false;
             // 
-            // pictureBox2
+            // fingerImage3
             // 
-            this.pictureBox2.Image = global::CRS.Client.Properties.Resources.finger;
-            this.pictureBox2.Location = new System.Drawing.Point(303, 29);
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(108, 126);
-            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox2.TabIndex = 3;
-            this.pictureBox2.TabStop = false;
-           
+            this.fingerImage3.Image = global::CRS.Client.Properties.Resources.finger;
+            this.fingerImage3.Location = new System.Drawing.Point(303, 39);
+            this.fingerImage3.Name = "fingerImage3";
+            this.fingerImage3.Size = new System.Drawing.Size(108, 126);
+            this.fingerImage3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.fingerImage3.TabIndex = 3;
+            this.fingerImage3.TabStop = false;
             // 
-            // pictureBox1
+            // fingerImage2
             // 
-            this.pictureBox1.Image = global::CRS.Client.Properties.Resources.finger;
-            this.pictureBox1.Location = new System.Drawing.Point(159, 29);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(108, 126);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox1.TabIndex = 4;
-            this.pictureBox1.TabStop = false;
-           
+            this.fingerImage2.Image = global::CRS.Client.Properties.Resources.finger;
+            this.fingerImage2.Location = new System.Drawing.Point(159, 39);
+            this.fingerImage2.Name = "fingerImage2";
+            this.fingerImage2.Size = new System.Drawing.Size(108, 126);
+            this.fingerImage2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.fingerImage2.TabIndex = 4;
+            this.fingerImage2.TabStop = false;
             // 
             // fingerImage1
             // 
             this.fingerImage1.Image = global::CRS.Client.Properties.Resources.finger;
-            this.fingerImage1.Location = new System.Drawing.Point(31, 29);
+            this.fingerImage1.Location = new System.Drawing.Point(31, 39);
             this.fingerImage1.Name = "fingerImage1";
             this.fingerImage1.Size = new System.Drawing.Size(108, 126);
             this.fingerImage1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.fingerImage1.TabIndex = 5;
             this.fingerImage1.TabStop = false;
-           
             // 
             // tabPage2
             // 
-            this.tabPage2.Controls.Add(this.pictureBox5);
-            this.tabPage2.Controls.Add(this.pictureBox6);
-            this.tabPage2.Controls.Add(this.pictureBox7);
-            this.tabPage2.Controls.Add(this.pictureBox8);
-            this.tabPage2.Controls.Add(this.pictureBox9);
+            this.tabPage2.Controls.Add(this.scanButton10);
+            this.tabPage2.Controls.Add(this.scanButton9);
+            this.tabPage2.Controls.Add(this.scanButton8);
+            this.tabPage2.Controls.Add(this.scanButton7);
+            this.tabPage2.Controls.Add(this.scanButton6);
+            this.tabPage2.Controls.Add(this.fingerImage10);
+            this.tabPage2.Controls.Add(this.fingerImage9);
+            this.tabPage2.Controls.Add(this.fingerImage8);
+            this.tabPage2.Controls.Add(this.fingerImage7);
+            this.tabPage2.Controls.Add(this.fingerImage6);
             this.tabPage2.Location = new System.Drawing.Point(4, 25);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
@@ -525,60 +540,55 @@
             this.tabPage2.Text = "Left Hand";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
-            // pictureBox5
+            // fingerImage10
             // 
-            this.pictureBox5.Image = global::CRS.Client.Properties.Resources.finger;
-            this.pictureBox5.Location = new System.Drawing.Point(614, 29);
-            this.pictureBox5.Name = "pictureBox5";
-            this.pictureBox5.Size = new System.Drawing.Size(108, 126);
-            this.pictureBox5.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox5.TabIndex = 1;
-            this.pictureBox5.TabStop = false;
-           
+            this.fingerImage10.Image = global::CRS.Client.Properties.Resources.finger;
+            this.fingerImage10.Location = new System.Drawing.Point(606, 35);
+            this.fingerImage10.Name = "fingerImage10";
+            this.fingerImage10.Size = new System.Drawing.Size(108, 126);
+            this.fingerImage10.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.fingerImage10.TabIndex = 1;
+            this.fingerImage10.TabStop = false;
             // 
-            // pictureBox6
+            // fingerImage9
             // 
-            this.pictureBox6.Image = global::CRS.Client.Properties.Resources.finger;
-            this.pictureBox6.Location = new System.Drawing.Point(447, 29);
-            this.pictureBox6.Name = "pictureBox6";
-            this.pictureBox6.Size = new System.Drawing.Size(108, 126);
-            this.pictureBox6.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox6.TabIndex = 2;
-            this.pictureBox6.TabStop = false;
-           
+            this.fingerImage9.Image = global::CRS.Client.Properties.Resources.finger;
+            this.fingerImage9.Location = new System.Drawing.Point(447, 35);
+            this.fingerImage9.Name = "fingerImage9";
+            this.fingerImage9.Size = new System.Drawing.Size(108, 126);
+            this.fingerImage9.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.fingerImage9.TabIndex = 2;
+            this.fingerImage9.TabStop = false;
             // 
-            // pictureBox7
+            // fingerImage8
             // 
-            this.pictureBox7.Image = global::CRS.Client.Properties.Resources.finger;
-            this.pictureBox7.Location = new System.Drawing.Point(303, 29);
-            this.pictureBox7.Name = "pictureBox7";
-            this.pictureBox7.Size = new System.Drawing.Size(108, 126);
-            this.pictureBox7.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox7.TabIndex = 3;
-            this.pictureBox7.TabStop = false;
-            
+            this.fingerImage8.Image = global::CRS.Client.Properties.Resources.finger;
+            this.fingerImage8.Location = new System.Drawing.Point(303, 35);
+            this.fingerImage8.Name = "fingerImage8";
+            this.fingerImage8.Size = new System.Drawing.Size(108, 126);
+            this.fingerImage8.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.fingerImage8.TabIndex = 3;
+            this.fingerImage8.TabStop = false;
             // 
-            // pictureBox8
+            // fingerImage7
             // 
-            this.pictureBox8.Image = global::CRS.Client.Properties.Resources.finger;
-            this.pictureBox8.Location = new System.Drawing.Point(159, 29);
-            this.pictureBox8.Name = "pictureBox8";
-            this.pictureBox8.Size = new System.Drawing.Size(108, 126);
-            this.pictureBox8.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox8.TabIndex = 4;
-            this.pictureBox8.TabStop = false;
-            
+            this.fingerImage7.Image = global::CRS.Client.Properties.Resources.finger;
+            this.fingerImage7.Location = new System.Drawing.Point(159, 35);
+            this.fingerImage7.Name = "fingerImage7";
+            this.fingerImage7.Size = new System.Drawing.Size(108, 126);
+            this.fingerImage7.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.fingerImage7.TabIndex = 4;
+            this.fingerImage7.TabStop = false;
             // 
-            // pictureBox9
+            // fingerImage6
             // 
-            this.pictureBox9.Image = global::CRS.Client.Properties.Resources.finger;
-            this.pictureBox9.Location = new System.Drawing.Point(31, 29);
-            this.pictureBox9.Name = "pictureBox9";
-            this.pictureBox9.Size = new System.Drawing.Size(108, 126);
-            this.pictureBox9.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox9.TabIndex = 5;
-            this.pictureBox9.TabStop = false;
-            
+            this.fingerImage6.Image = global::CRS.Client.Properties.Resources.finger;
+            this.fingerImage6.Location = new System.Drawing.Point(31, 35);
+            this.fingerImage6.Name = "fingerImage6";
+            this.fingerImage6.Size = new System.Drawing.Size(108, 126);
+            this.fingerImage6.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.fingerImage6.TabIndex = 5;
+            this.fingerImage6.TabStop = false;
             // 
             // button2
             // 
@@ -604,6 +614,136 @@
             this.button1.UseVisualStyleBackColor = false;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
+            // scanButton1
+            // 
+            this.scanButton1.BackColor = System.Drawing.Color.PaleGreen;
+            this.scanButton1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.scanButton1.ForeColor = System.Drawing.Color.Black;
+            this.scanButton1.Location = new System.Drawing.Point(46, 6);
+            this.scanButton1.Name = "scanButton1";
+            this.scanButton1.Size = new System.Drawing.Size(75, 27);
+            this.scanButton1.TabIndex = 6;
+            this.scanButton1.Text = "Scan";
+            this.scanButton1.UseVisualStyleBackColor = false;
+            this.scanButton1.Click += new System.EventHandler(this.scanButton1_Click);
+            // 
+            // scanButton2
+            // 
+            this.scanButton2.BackColor = System.Drawing.Color.PaleGreen;
+            this.scanButton2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.scanButton2.ForeColor = System.Drawing.Color.Black;
+            this.scanButton2.Location = new System.Drawing.Point(168, 4);
+            this.scanButton2.Name = "scanButton2";
+            this.scanButton2.Size = new System.Drawing.Size(75, 27);
+            this.scanButton2.TabIndex = 6;
+            this.scanButton2.Text = "Scan";
+            this.scanButton2.UseVisualStyleBackColor = false;
+            this.scanButton2.Click += new System.EventHandler(this.scanButton2_Click);
+            // 
+            // scanButton3
+            // 
+            this.scanButton3.BackColor = System.Drawing.Color.PaleGreen;
+            this.scanButton3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.scanButton3.ForeColor = System.Drawing.Color.Black;
+            this.scanButton3.Location = new System.Drawing.Point(314, 6);
+            this.scanButton3.Name = "scanButton3";
+            this.scanButton3.Size = new System.Drawing.Size(75, 27);
+            this.scanButton3.TabIndex = 6;
+            this.scanButton3.Text = "Scan";
+            this.scanButton3.UseVisualStyleBackColor = false;
+            this.scanButton3.Click += new System.EventHandler(this.scanButton3_Click);
+            // 
+            // scanButton4
+            // 
+            this.scanButton4.BackColor = System.Drawing.Color.PaleGreen;
+            this.scanButton4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.scanButton4.ForeColor = System.Drawing.Color.Black;
+            this.scanButton4.Location = new System.Drawing.Point(461, 6);
+            this.scanButton4.Name = "scanButton4";
+            this.scanButton4.Size = new System.Drawing.Size(75, 27);
+            this.scanButton4.TabIndex = 6;
+            this.scanButton4.Text = "Scan";
+            this.scanButton4.UseVisualStyleBackColor = false;
+            this.scanButton4.Click += new System.EventHandler(this.scanButton4_Click);
+            // 
+            // scanButton5
+            // 
+            this.scanButton5.BackColor = System.Drawing.Color.PaleGreen;
+            this.scanButton5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.scanButton5.ForeColor = System.Drawing.Color.Black;
+            this.scanButton5.Location = new System.Drawing.Point(632, 6);
+            this.scanButton5.Name = "scanButton5";
+            this.scanButton5.Size = new System.Drawing.Size(75, 27);
+            this.scanButton5.TabIndex = 6;
+            this.scanButton5.Text = "Scan";
+            this.scanButton5.UseVisualStyleBackColor = false;
+            this.scanButton5.Click += new System.EventHandler(this.scanButton5_Click);
+            // 
+            // scanButton6
+            // 
+            this.scanButton6.BackColor = System.Drawing.Color.PaleGreen;
+            this.scanButton6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.scanButton6.ForeColor = System.Drawing.Color.Black;
+            this.scanButton6.Location = new System.Drawing.Point(46, 3);
+            this.scanButton6.Name = "scanButton6";
+            this.scanButton6.Size = new System.Drawing.Size(75, 27);
+            this.scanButton6.TabIndex = 7;
+            this.scanButton6.Text = "Scan";
+            this.scanButton6.UseVisualStyleBackColor = false;
+            this.scanButton6.Click += new System.EventHandler(this.scanButton6_Click);
+            // 
+            // scanButton7
+            // 
+            this.scanButton7.BackColor = System.Drawing.Color.PaleGreen;
+            this.scanButton7.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.scanButton7.ForeColor = System.Drawing.Color.Black;
+            this.scanButton7.Location = new System.Drawing.Point(172, 3);
+            this.scanButton7.Name = "scanButton7";
+            this.scanButton7.Size = new System.Drawing.Size(75, 27);
+            this.scanButton7.TabIndex = 7;
+            this.scanButton7.Text = "Scan";
+            this.scanButton7.UseVisualStyleBackColor = false;
+            this.scanButton7.Click += new System.EventHandler(this.scanButton7_Click);
+            // 
+            // scanButton8
+            // 
+            this.scanButton8.BackColor = System.Drawing.Color.PaleGreen;
+            this.scanButton8.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.scanButton8.ForeColor = System.Drawing.Color.Black;
+            this.scanButton8.Location = new System.Drawing.Point(323, 2);
+            this.scanButton8.Name = "scanButton8";
+            this.scanButton8.Size = new System.Drawing.Size(75, 27);
+            this.scanButton8.TabIndex = 7;
+            this.scanButton8.Text = "Scan";
+            this.scanButton8.UseVisualStyleBackColor = false;
+            this.scanButton8.Click += new System.EventHandler(this.scanButton8_Click);
+            // 
+            // scanButton9
+            // 
+            this.scanButton9.BackColor = System.Drawing.Color.PaleGreen;
+            this.scanButton9.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.scanButton9.ForeColor = System.Drawing.Color.Black;
+            this.scanButton9.Location = new System.Drawing.Point(460, 2);
+            this.scanButton9.Name = "scanButton9";
+            this.scanButton9.Size = new System.Drawing.Size(75, 27);
+            this.scanButton9.TabIndex = 7;
+            this.scanButton9.Text = "Scan";
+            this.scanButton9.UseVisualStyleBackColor = false;
+            this.scanButton9.Click += new System.EventHandler(this.scanButton9_Click);
+            // 
+            // scanButton10
+            // 
+            this.scanButton10.BackColor = System.Drawing.Color.PaleGreen;
+            this.scanButton10.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.scanButton10.ForeColor = System.Drawing.Color.Black;
+            this.scanButton10.Location = new System.Drawing.Point(619, 2);
+            this.scanButton10.Name = "scanButton10";
+            this.scanButton10.Size = new System.Drawing.Size(75, 27);
+            this.scanButton10.TabIndex = 7;
+            this.scanButton10.Text = "Scan";
+            this.scanButton10.UseVisualStyleBackColor = false;
+            this.scanButton10.Click += new System.EventHandler(this.scanButton10_Click);
+            // 
             // AddSuspect
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -624,17 +764,17 @@
             this.groupBox3.ResumeLayout(false);
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.fingerImage5)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.fingerImage4)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.fingerImage3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.fingerImage2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.fingerImage1)).EndInit();
             this.tabPage2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox7)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox8)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox9)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.fingerImage10)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.fingerImage9)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.fingerImage8)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.fingerImage7)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.fingerImage6)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -676,19 +816,29 @@
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPage1;
-        private System.Windows.Forms.PictureBox pictureBox4;
-        private System.Windows.Forms.PictureBox pictureBox3;
-        private System.Windows.Forms.PictureBox pictureBox2;
-        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.PictureBox fingerImage5;
+        private System.Windows.Forms.PictureBox fingerImage4;
+        private System.Windows.Forms.PictureBox fingerImage3;
+        private System.Windows.Forms.PictureBox fingerImage2;
         private System.Windows.Forms.PictureBox fingerImage1;
         private System.Windows.Forms.TabPage tabPage2;
-        private System.Windows.Forms.PictureBox pictureBox5;
-        private System.Windows.Forms.PictureBox pictureBox6;
-        private System.Windows.Forms.PictureBox pictureBox7;
-        private System.Windows.Forms.PictureBox pictureBox8;
-        private System.Windows.Forms.PictureBox pictureBox9;
+        private System.Windows.Forms.PictureBox fingerImage10;
+        private System.Windows.Forms.PictureBox fingerImage9;
+        private System.Windows.Forms.PictureBox fingerImage8;
+        private System.Windows.Forms.PictureBox fingerImage7;
+        private System.Windows.Forms.PictureBox fingerImage6;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Label mainLabel;
+        private System.Windows.Forms.Button scanButton5;
+        private System.Windows.Forms.Button scanButton4;
+        private System.Windows.Forms.Button scanButton3;
+        private System.Windows.Forms.Button scanButton2;
+        private System.Windows.Forms.Button scanButton1;
+        private System.Windows.Forms.Button scanButton6;
+        private System.Windows.Forms.Button scanButton10;
+        private System.Windows.Forms.Button scanButton9;
+        private System.Windows.Forms.Button scanButton8;
+        private System.Windows.Forms.Button scanButton7;
     }
 }

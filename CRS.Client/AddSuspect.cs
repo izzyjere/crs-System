@@ -31,7 +31,7 @@ namespace CRS.Client
         CitizenResponse Model = new();
         bool detilsPulled;
         SuspectRequest suspect = new();
-        async void InitDevice(PictureBox pictureBox=null)
+        async void InitDevice()
         {
             var connect = deviceAccessor.AccessFingerprintDevice();
             if (!connect.Succeeded)
@@ -76,20 +76,7 @@ namespace CRS.Client
                         placeOfBirth.Invoke(i => i.Text = Model.PlaceOfBirth);
                         detilsPulled = true;
                     }
-                }
-                else
-                {
-                    var img = image.Clone();
-                    if(pictureBox==null)
-                    {
-                        MessageBox.Show("Click on the finger to scan.");
-                        return;
-                    }
-                    pictureBox.Image = image;
-                    suspect.Bytes.Add(((Image)img).ToByteArray()); 
-                    
-                }
-
+                }                
                 scannerDisplay.Invoke(s => { s.Text = "Fingerprint Captured."; s.ForeColor = Color.Green; });
 
             };
@@ -138,7 +125,362 @@ namespace CRS.Client
         private void button1_Click(object sender, EventArgs e)
         {
             Close();
-        }         
-      
+        }
+
+        private void scanButton1_Click(object sender, EventArgs e)
+        {
+            if (!detilsPulled)
+            {
+                return;
+            }
+            device.StopFingerDetection();            
+            var connect = deviceAccessor.AccessFingerprintDevice();
+            if (!connect.Succeeded)
+            {
+                MessageBox.Show(connect.Messages.First());
+                return;
+
+            }
+            var dev = connect.Data;
+            dev.FingerDetected +=(sendr,args)=> {
+                device.SwitchLedState(true, false);
+                // Save fingerprint to temporary folder
+                var fingerprint = device.ReadFingerprint();
+                scannerDisplay.Invoke(s => { s.Text = "Release Finger."; s.ForeColor = Color.Red; });
+                var tempFile = Path.GetTempFileName();
+                var tmpBmpFile = Path.ChangeExtension(tempFile, "bmp");
+                fingerprint.Save(tmpBmpFile);
+                fingerImage1.Invoke(i => i.Image = Image.FromFile(tmpBmpFile));
+                var image = Image.FromFile(tmpBmpFile);
+                if(suspect.Bytes.Any())
+                {
+                    suspect.Bytes.RemoveAt(0);
+                }
+                suspect.Bytes.Add(image.ToByteArray());
+            };
+            dev.StartFingerDetection();
+            dev.SwitchLedState(false, true);
+            dev.SwitchLedState(false, false);
+        }
+
+        private void scanButton2_Click(object sender, EventArgs e)
+        {
+            if (!detilsPulled)
+            {
+                return;
+            }
+            device.StopFingerDetection();
+            var connect = deviceAccessor.AccessFingerprintDevice();
+            if (!connect.Succeeded)
+            {
+                MessageBox.Show(connect.Messages.First());
+                return;
+
+            }
+            var dev = connect.Data;
+            dev.FingerDetected +=(sendr, args) => {
+                device.SwitchLedState(true, false);
+                // Save fingerprint to temporary folder
+                var fingerprint = device.ReadFingerprint();
+                scannerDisplay.Invoke(s => { s.Text = "Release Finger."; s.ForeColor = Color.Red; });
+                var tempFile = Path.GetTempFileName();
+                var tmpBmpFile = Path.ChangeExtension(tempFile, "bmp");
+                fingerprint.Save(tmpBmpFile);
+                fingerImage2.Invoke(i => i.Image = Image.FromFile(tmpBmpFile));
+                var image = Image.FromFile(tmpBmpFile);
+                if (suspect.Bytes.Count <1)
+                {
+                    suspect.Bytes.RemoveAt(1);
+                }
+                suspect.Bytes.Add(image.ToByteArray());
+            };
+            dev.StartFingerDetection();
+            dev.SwitchLedState(false, true);
+            dev.SwitchLedState(false, false);
+        }
+
+        private void scanButton3_Click(object sender, EventArgs e)
+        {
+            if (!detilsPulled)
+            {
+                return;
+            }
+            device.StopFingerDetection();
+            var connect = deviceAccessor.AccessFingerprintDevice();
+            if (!connect.Succeeded)
+            {
+                MessageBox.Show(connect.Messages.First());
+                return;
+
+            }
+            var dev = connect.Data;
+            dev.FingerDetected +=(sendr, args) => {
+                device.SwitchLedState(true, false);
+                // Save fingerprint to temporary folder
+                var fingerprint = device.ReadFingerprint();
+                scannerDisplay.Invoke(s => { s.Text = "Release Finger."; s.ForeColor = Color.Red; });
+                var tempFile = Path.GetTempFileName();
+                var tmpBmpFile = Path.ChangeExtension(tempFile, "bmp");
+                fingerprint.Save(tmpBmpFile);
+                fingerImage3.Invoke(i => i.Image = Image.FromFile(tmpBmpFile));
+                var image = Image.FromFile(tmpBmpFile);
+                if (suspect.Bytes.Count <2)
+                {
+                    suspect.Bytes.RemoveAt(2);
+                }
+                suspect.Bytes.Add(image.ToByteArray());
+            };
+            dev.StartFingerDetection();
+            dev.SwitchLedState(false, true);
+            dev.SwitchLedState(false, false);
+        }
+
+        private void scanButton4_Click(object sender, EventArgs e)
+        {
+            if (!detilsPulled)
+            {
+                return;
+            }
+            device.StopFingerDetection();
+            var connect = deviceAccessor.AccessFingerprintDevice();
+            if (!connect.Succeeded)
+            {
+                MessageBox.Show(connect.Messages.First());
+                return;
+
+            }
+            var dev = connect.Data;
+            dev.FingerDetected +=(sendr, args) => {
+                device.SwitchLedState(true, false);
+                // Save fingerprint to temporary folder
+                var fingerprint = device.ReadFingerprint();
+                scannerDisplay.Invoke(s => { s.Text = "Release Finger."; s.ForeColor = Color.Red; });
+                var tempFile = Path.GetTempFileName();
+                var tmpBmpFile = Path.ChangeExtension(tempFile, "bmp");
+                fingerprint.Save(tmpBmpFile);
+                fingerImage4.Invoke(i => i.Image = Image.FromFile(tmpBmpFile));
+                var image = Image.FromFile(tmpBmpFile);
+                if (suspect.Bytes.Count <3)
+                {
+                    suspect.Bytes.RemoveAt(3);
+                }
+                suspect.Bytes.Add(image.ToByteArray());
+            };
+            dev.StartFingerDetection();
+            dev.SwitchLedState(false, true);
+            dev.SwitchLedState(false, false);
+        }
+
+        private void scanButton5_Click(object sender, EventArgs e)
+        {
+            if (!detilsPulled)
+            {
+                return;
+            }
+            device.StopFingerDetection();
+            var connect = deviceAccessor.AccessFingerprintDevice();
+            if (!connect.Succeeded)
+            {
+                MessageBox.Show(connect.Messages.First());
+                return;
+
+            }
+            var dev = connect.Data;
+            dev.FingerDetected +=(sendr, args) => {
+                device.SwitchLedState(true, false);
+                // Save fingerprint to temporary folder
+                var fingerprint = device.ReadFingerprint();
+                scannerDisplay.Invoke(s => { s.Text = "Release Finger."; s.ForeColor = Color.Red; });
+                var tempFile = Path.GetTempFileName();
+                var tmpBmpFile = Path.ChangeExtension(tempFile, "bmp");
+                fingerprint.Save(tmpBmpFile);
+                fingerImage5.Invoke(i => i.Image = Image.FromFile(tmpBmpFile));
+                var image = Image.FromFile(tmpBmpFile);
+                if (suspect.Bytes.Count <4)
+                {
+                    suspect.Bytes.RemoveAt(4);
+                }
+                suspect.Bytes.Add(image.ToByteArray());
+            };
+            dev.StartFingerDetection();
+            dev.SwitchLedState(false, true);
+            dev.SwitchLedState(false, false);
+        }
+
+        private void scanButton6_Click(object sender, EventArgs e)
+        {
+            device.StopFingerDetection();
+            var connect = deviceAccessor.AccessFingerprintDevice();
+            if (!connect.Succeeded)
+            {
+                MessageBox.Show(connect.Messages.First());
+                return;
+
+            }
+            var dev = connect.Data;
+            dev.FingerDetected +=(sendr, args) => {
+                device.SwitchLedState(true, false);
+                // Save fingerprint to temporary folder
+                var fingerprint = device.ReadFingerprint();
+                scannerDisplay.Invoke(s => { s.Text = "Release Finger."; s.ForeColor = Color.Red; });
+                var tempFile = Path.GetTempFileName();
+                var tmpBmpFile = Path.ChangeExtension(tempFile, "bmp");
+                fingerprint.Save(tmpBmpFile);
+                fingerImage6.Invoke(i => i.Image = Image.FromFile(tmpBmpFile));
+                var image = Image.FromFile(tmpBmpFile);
+                if (suspect.Bytes.Count <5)
+                {
+                    suspect.Bytes.RemoveAt(5);
+                }
+                suspect.Bytes.Add(image.ToByteArray());
+            };
+            dev.StartFingerDetection();
+            dev.SwitchLedState(false, true);
+            dev.SwitchLedState(false, false);
+        }
+
+        private void scanButton7_Click(object sender, EventArgs e)
+        {
+            if (!detilsPulled)
+            {
+                return;
+            }
+            device.StopFingerDetection();
+            var connect = deviceAccessor.AccessFingerprintDevice();
+            if (!connect.Succeeded)
+            {
+                MessageBox.Show(connect.Messages.First());
+                return;
+
+            }
+            var dev = connect.Data;
+            dev.FingerDetected +=(sendr, args) => {
+                device.SwitchLedState(true, false);
+                // Save fingerprint to temporary folder
+                var fingerprint = device.ReadFingerprint();
+                scannerDisplay.Invoke(s => { s.Text = "Release Finger."; s.ForeColor = Color.Red; });
+                var tempFile = Path.GetTempFileName();
+                var tmpBmpFile = Path.ChangeExtension(tempFile, "bmp");
+                fingerprint.Save(tmpBmpFile);
+                fingerImage7.Invoke(i => i.Image = Image.FromFile(tmpBmpFile));
+                var image = Image.FromFile(tmpBmpFile);
+                if (suspect.Bytes.Count <6)
+                {
+                    suspect.Bytes.RemoveAt(6);
+                }
+                suspect.Bytes.Add(image.ToByteArray());
+            };
+            dev.StartFingerDetection();
+            dev.SwitchLedState(false, true);
+            dev.SwitchLedState(false, false);
+        }
+
+        private void scanButton8_Click(object sender, EventArgs e)
+        {
+            if (!detilsPulled)
+            {
+                return;
+            }
+            device.StopFingerDetection();
+            var connect = deviceAccessor.AccessFingerprintDevice();
+            if (!connect.Succeeded)
+            {
+                MessageBox.Show(connect.Messages.First());
+                return;
+
+            }
+            var dev = connect.Data;
+            dev.FingerDetected +=(sendr, args) => {
+                device.SwitchLedState(true, false);
+                // Save fingerprint to temporary folder
+                var fingerprint = device.ReadFingerprint();
+                scannerDisplay.Invoke(s => { s.Text = "Release Finger."; s.ForeColor = Color.Red; });
+                var tempFile = Path.GetTempFileName();
+                var tmpBmpFile = Path.ChangeExtension(tempFile, "bmp");
+                fingerprint.Save(tmpBmpFile);
+                fingerImage8.Invoke(i => i.Image = Image.FromFile(tmpBmpFile));
+                var image = Image.FromFile(tmpBmpFile);
+                if (suspect.Bytes.Count <7)
+                {
+                    suspect.Bytes.RemoveAt(7);
+                }
+                suspect.Bytes.Add(image.ToByteArray());
+            };
+            dev.StartFingerDetection();
+            dev.SwitchLedState(false, true);
+            dev.SwitchLedState(false, false);
+        }
+
+        private void scanButton9_Click(object sender, EventArgs e)
+        {
+            if (!detilsPulled)
+            {
+                return;
+            }
+            device.StopFingerDetection();
+            var connect = deviceAccessor.AccessFingerprintDevice();
+            if (!connect.Succeeded)
+            {
+                MessageBox.Show(connect.Messages.First());
+                return;
+
+            }
+            var dev = connect.Data;
+            dev.FingerDetected +=(sendr, args) => {
+                device.SwitchLedState(true, false);
+                // Save fingerprint to temporary folder
+                var fingerprint = device.ReadFingerprint();
+                scannerDisplay.Invoke(s => { s.Text = "Release Finger."; s.ForeColor = Color.Red; });
+                var tempFile = Path.GetTempFileName();
+                var tmpBmpFile = Path.ChangeExtension(tempFile, "bmp");
+                fingerprint.Save(tmpBmpFile);
+                fingerImage9.Invoke(i => i.Image = Image.FromFile(tmpBmpFile));
+                var image = Image.FromFile(tmpBmpFile);
+                if (suspect.Bytes.Count <8)
+                {
+                    suspect.Bytes.RemoveAt(8);
+                }
+                suspect.Bytes.Add(image.ToByteArray());
+            };
+            dev.StartFingerDetection();
+            dev.SwitchLedState(false, true);
+            dev.SwitchLedState(false, false);
+        }
+
+        private void scanButton10_Click(object sender, EventArgs e)
+        {
+            if (!detilsPulled)
+            {
+                return;
+            }
+            device.StopFingerDetection();
+            var connect = deviceAccessor.AccessFingerprintDevice();
+            if (!connect.Succeeded)
+            {
+                MessageBox.Show(connect.Messages.First());
+                return;
+
+            }
+            var dev = connect.Data;
+            dev.FingerDetected +=(sendr, args) => {
+                device.SwitchLedState(true, false);
+                // Save fingerprint to temporary folder
+                var fingerprint = device.ReadFingerprint();
+                scannerDisplay.Invoke(s => { s.Text = "Release Finger."; s.ForeColor = Color.Red; });
+                var tempFile = Path.GetTempFileName();
+                var tmpBmpFile = Path.ChangeExtension(tempFile, "bmp");
+                fingerprint.Save(tmpBmpFile);
+                fingerImage10.Invoke(i => i.Image = Image.FromFile(tmpBmpFile));
+                var image = Image.FromFile(tmpBmpFile);
+                if (suspect.Bytes.Count <9)
+                {
+                    suspect.Bytes.RemoveAt(9);
+                }
+                suspect.Bytes.Add(image.ToByteArray());
+            };
+            dev.StartFingerDetection();
+            dev.SwitchLedState(false, true);
+            dev.SwitchLedState(false, false);
+        }
     }
 }
