@@ -114,5 +114,15 @@ namespace CRS.Client.Services
             return _citizenResponses.FirstOrDefault(r => r.Id == match.Id);
 
         }
+        public async Task<IResult> Add(SuspectRequest suspect)
+        {
+            httpClient.BaseAddress = new Uri("");
+            var response = await httpClient.PostAsJsonAsync("api/suspects", suspect);
+            if(response.IsSuccessStatusCode)
+            {
+                return await response.ToResult();
+            }
+            return Result.Fail("Could not connect to server");
+        }
     }
 }
