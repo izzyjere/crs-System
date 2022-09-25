@@ -73,9 +73,8 @@ record SuspectRequest
     public string Occupation { get; set; }
     public string PhysicalAddress { get; set; }
 }
-record SuspectResponse
+public record SuspectResponse
 {
-    public string NRC { get; set; }
-    public string Name { get; set; }
-    public int CaseCount { get; set; }
+    public Suspect Suspect { get; set; }
+    public PersonalDetails PersonalDetails { get; set; }
 }

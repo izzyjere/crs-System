@@ -1,7 +1,69 @@
 ﻿@page "/"
+@using CRS.Shared
+@using Newtonsoft.Json
+@inject DatabaseContext db
 
-<PageTitle>Index</PageTitle>
+<MudTable Bordered Striped Hover Items="@DataSource">
+    <ToolBarContent>
+        <MudText Color="Color.Primary" Typo="Typo.h5">Suspects</MudText>
+        <MudSpacer />
+        <MudTextField @bind-Value="searchString1" Placeholder="Search" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
+    </ToolBarContent>
+    <HeaderContent>
+        <MudTh>Name</MudTh>
+        <MudTh>NRC Number</MudTh>
+        <MudTh>Registered On</MudTh>
+        <MudTh>Date of Birth</MudTh>
+        <MudTh>Place of Birth</MudTh>
+        <MudTh>Gender</MudTh>        
+        <MudTh>Actions</MudTh>
+    </HeaderContent>
+    <RowTemplate>
+        <MudTd>@context.PersonalDetails.FullName</MudTd>
+        <MudTd>@context.PersonalDetails.NRC</MudTd>
+        <MudTd>@context.PersonalDetails.DateOfRegistration.ToString("dd MMM yyyy H:mm")</MudTd>
+        <MudTd>@context.PersonalDetails.DateOfBirth.ToString("dd MMM yyyy")</MudTd>
+        <MudTd>@context.PersonalDetails.PlaceOfBirth</MudTd>
+        <MudTd>@context.PersonalDetails.Gender</MudTd>        
+        <MudTd>
+            <MudButton Color="Color.Primary">View Details</MudButton>
+        </MudTd>
+    </RowTemplate>
+    <PagerContent>
+        <MudTablePager />
+    </PagerContent>
+</MudTable>
+@code
+{
+    List<SuspectResponse> DataSource = new();
+    private string searchString1 = "";
+    List<Citizen> citizens = new();
+    protected override async void OnInitialized()
+    {
+        var httpClient = new HttpClient();
+        var response = await httpClient.GetAsync("https://localhost:5001/api/citizens");
+        if(response.IsSuccessStatusCode)
+        { 
+            citizens = await response.Content.ReadFromJsonAsync<List<Citizen>>();
+        }
+        if(citizens is not null)
+        {
+            DataSource = GetSuspects();
+        }
+    }
+    void ShowDetails()
+    {
 
-<MudText Typo="Typo.h3" GutterBottom="true">Hello, world!</MudText>
-<MudText Class="mb-8">Welcome to your new app, powered by MudBlazor!</MudText>
-<MudAlert Severity="Severity.Normal">You can find documentation and examples on our website here: <MudLink Href="https://mudblazor.com" Typo="Typo.body2" Color="Color.Inherit"><b>www.mudblazor.com</b></MudLink></MudAlert>
+    }
+    public List<SuspectResponse> GetSuspects()
+    {
+        var list = new List<SuspectResponse>();
+        foreach (var suspect in db.Suspects)
+        {
+            var citizen = list.FirstOrDefault(c => c.PersonalDetails.NRC == suspect.NRC);
+            if(citizen is not null)
+                list.Add(new SuspectResponse { Suspect = suspect ,PersonalDetails=citizen.PersonalDetails });
+        }
+        return list;
+    }
+}
