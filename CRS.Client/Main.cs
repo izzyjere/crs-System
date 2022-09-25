@@ -41,5 +41,11 @@ namespace CRS.Client
             var form = new JudgementsView();
             form.ShowDialog();
         }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            var form = new ViewRecords();
+            form.ShowDialog();
+        }
     }
 }
