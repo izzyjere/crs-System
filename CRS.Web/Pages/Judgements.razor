@@ -54,15 +54,17 @@
         if (!result.Cancelled)
         {
             judgements = db.Judgements.Include(c => c.Case).ThenInclude(c => c.Suspect).ToList();
+            StateHasChanged();
         }
     }
     async void Edit(Judgement record)
     {
-        var dialog = dialogService.Show<AddJudgementDialog>("Edit",new DialogParameters{["Model"]=record,["IsEdidting"]=true});
+        var dialog = dialogService.Show<AddJudgementDialog>("Edit",new DialogParameters{["Model"]=record,["IsEditing"]=true});
         var result = await dialog.Result;
         if (!result.Cancelled)
         {
             judgements = db.Judgements.Include(c => c.Case).ThenInclude(c => c.Suspect).ToList();
+            StateHasChanged();
         }
     }
 }
