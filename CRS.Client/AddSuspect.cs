@@ -145,8 +145,7 @@ namespace CRS.Client
         private void button1_Click(object sender, EventArgs e)
         {
             Close();
-        }
-        PictureBox currentFinger;
+        }         
         private void fingerImage1_Click(object sender, EventArgs e)
         {
             
