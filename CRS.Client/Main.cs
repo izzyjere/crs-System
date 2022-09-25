@@ -35,5 +35,11 @@ namespace CRS.Client
             var form = new AddSuspect();
             form.ShowDialog();
         }
+
+        private void button62_Click(object sender, EventArgs e)
+        {
+            var form = new JudgementsView();
+            form.ShowDialog();
+        }
     }
 }

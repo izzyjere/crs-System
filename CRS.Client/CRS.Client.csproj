@@ -87,6 +87,12 @@
       <DependentUpon>CasesView.cs</DependentUpon>
     </Compile>
     <Compile Include="Extensions.cs" />
+    <Compile Include="JudgementsView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="JudgementsView.Designer.cs">
+      <DependentUpon>JudgementsView.cs</DependentUpon>
+    </Compile>
     <Compile Include="Main.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -101,6 +107,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="CasesView.resx">
       <DependentUpon>CasesView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="JudgementsView.resx">
+      <DependentUpon>JudgementsView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Main.resx">
       <DependentUpon>Main.cs</DependentUpon>

@@ -10,12 +10,12 @@ using System.Windows.Forms;
 
 namespace CRS.Client
 {
-    public partial class CasesView : Form
+    public partial class JudgementsView : Form
     {
-        public CasesView()
+        public JudgementsView()
         {
             InitializeComponent();
-            webView21.Source = new Uri("https://localhost:5002/cases");
+            webView21.Source= new Uri("https://localhost:5002/judgements");
         }
     }
 }

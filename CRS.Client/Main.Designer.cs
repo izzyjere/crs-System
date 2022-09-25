@@ -33,7 +33,7 @@
             this.button2 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
-            this.button6 = new System.Windows.Forms.Button();
+            this.button62 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -96,18 +96,18 @@
             this.button4.Text = "View Records";
             this.button4.UseVisualStyleBackColor = false;
             // 
-            // button6
+            // button62
             // 
-            this.button6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
-            this.button6.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button6.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.button6.Location = new System.Drawing.Point(608, 167);
-            this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(171, 111);
-            this.button6.TabIndex = 3;
-            this.button6.Text = "Judgements";
-            this.button6.UseVisualStyleBackColor = false;
-            this.button6.Click += new System.EventHandler(this.button2_Click);
+            this.button62.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
+            this.button62.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button62.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.button62.Location = new System.Drawing.Point(608, 167);
+            this.button62.Name = "button62";
+            this.button62.Size = new System.Drawing.Size(171, 111);
+            this.button62.TabIndex = 3;
+            this.button62.Text = "Judgements";
+            this.button62.UseVisualStyleBackColor = false;
+            this.button62.Click += new System.EventHandler(this.button62_Click);
             // 
             // Main
             // 
@@ -116,7 +116,7 @@
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.button3);
-            this.Controls.Add(this.button6);
+            this.Controls.Add(this.button62);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button4);
             this.Controls.Add(this.button1);
@@ -134,6 +134,6 @@
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.Button button6;
+        private System.Windows.Forms.Button button62;
     }
 }
