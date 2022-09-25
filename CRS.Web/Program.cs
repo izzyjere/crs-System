@@ -63,13 +63,16 @@ app.MapPost("/api/suspects", (DatabaseContext db, [FromBody] SuspectRequest requ
         PhysicalAddress = request.PhysicalAddress,
         Biometrics = new()
     };
-    foreach (var data in request.Bytes)
+    for (int i = 0; i < 10; i++)
     {
-        suspect.Biometrics.Add(new Biometric() { Data = data});
-       
+        suspect.Biometrics.Add(new Biometric() { Data = request.Bytes[i] });
+    }
+    if (db.Suspects.Any(s => s.NRC == request.NRC))
+    {
+        return Result.Fail("Suspect already exists.");
     }
     db.Suspects.Add(suspect);
-    return db.SaveChanges() !=0 ? Result.Success() : Result.Fail();
+    return db.SaveChanges() !=0 ? Result.Success("Saved successfully") : Result.Fail( "An error occured try again.");
 });
 app.MapPost("/api/suspects/{nrc}", async (DatabaseContext db, [FromBody] string nrc) =>
 {

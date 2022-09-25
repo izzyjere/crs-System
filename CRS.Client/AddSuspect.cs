@@ -22,7 +22,7 @@ namespace CRS.Client
         {
             InitializeComponent();
             deviceAccessor = new DeviceAccessor();
-            suspect.Bytes = new();
+            suspect.Bytes = new(10);
             InitDevice();
         }
         DeviceAccessor deviceAccessor;
@@ -100,7 +100,8 @@ namespace CRS.Client
         }
 
         private async void button2_Click(object sender, EventArgs e)
-        {
+        {   
+             suspect.Bytes.TrimExcess();         
             if (suspect.Bytes.Count<10)
             {
                 MessageBox.Show("Capture all 10 fingers first.");
@@ -115,12 +116,12 @@ namespace CRS.Client
             var trySave = await suspectService.Add(suspect);
             if (trySave.Succeeded)
             {
-                MessageBox.Show("Saved");
+                MessageBox.Show(trySave.Messages.First());
                 Close();
             }
             else
             {
-                MessageBox.Show("Could not save. Check if all info was added correctly.");
+                MessageBox.Show(trySave.Messages.First());
                 return;
             }
         }
