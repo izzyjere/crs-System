@@ -12,6 +12,13 @@ namespace CRS.Shared
         public string JudgedBy { get; set; }
         public string Court { get; set; }
         public string  CertifyingOfficer { get; set; } 
+        public Verdict Verdict { get; set; }
         public Case Case { get; set; }
+    }
+    public enum Verdict
+    {
+        None,
+        Guity,
+        NotGuity
     }
 }

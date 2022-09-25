@@ -1,0 +1,112 @@
+﻿@using CRS.Shared
+@using Microsoft.EntityFrameworkCore
+@inject DatabaseContext context
+@inject ISnackbar snackBar
+<EditForm id="editForm" Model="@Model" OnValidSubmit="Submit" OnInvalidSubmit='()=>snackBar.Add("Please fill in all required fields.",Severity.Error)'>
+    <MudDialog>
+        <DialogContent>
+            <DataAnnotationsValidator />
+            <MudGrid Justify="Justify.SpaceBetween" Spacing="2">
+                <MudItem xs="12" sm="6">
+                    <MudTextField @bind-Value="@Model.CertifyingOfficer"
+                                  Label="Certifynig Officer"
+                                  For="()=>Model.CertifyingOfficer" />
+                </MudItem>
+                <MudItem xs="12" sm="6">
+                    <MudTextField @bind-Value="@Model.Court"
+                                  Label="Court"
+                                  For="()=>Model.Court" />
+                </MudItem>
+                <MudItem xs="12" sm="6">
+                    <MudTextField @bind-Value="@Model.JudgedBy"
+                                  Label="Judge"
+                                  For="()=>Model.JudgedBy" />
+                </MudItem>
+                <MudItem xs="12" sm="6">
+                    <MudSelect T="int" Label="Case" For="()=>Model.CaseId" @bind-Value="@Model.CaseId">
+                        <MudSelectItem T="int" Value="0">Not selected</MudSelectItem>
+                        @foreach (var item in cases)
+                        {
+                            <MudSelectItem T="int" Value="@item.Id">@item.Suspect?.Name case @item.Id</MudSelectItem>
+                        }
+                    </MudSelect>
+                </MudItem>
+                <MudItem xs="12" sm="6">
+                    <MudSelect T="Verdict" Label="Verdict" For="()=>Model.Verdict" @bind-Value="@Model.Verdict">
+
+                        @foreach (Verdict item in Enum.GetValues(typeof(Verdict)))
+                        {
+                            <MudSelectItem T="Verdict" Value="@item">@item.ToString()</MudSelectItem>
+                        }
+                    </MudSelect>
+                </MudItem>
+
+            </MudGrid>
+
+        </DialogContent>
+        <DialogActions>
+            <MudButton Variant="Variant.Text" OnClick="Cancel">Cancel</MudButton>
+            <MudButton Variant="Variant.Filled" ButtonType="ButtonType.Submit" Color="Color.Primary">Save</MudButton>
+        </DialogActions>
+    </MudDialog>
+</EditForm>
+@code {
+    [CascadingParameter] MudDialogInstance Dialog { get; set; }
+    [Parameter] public Judgement Model { get; set; }
+    [Parameter] public bool IsEditing { get; set; }
+
+
+    List<Case> cases = new();
+    protected override async Task OnInitializedAsync()
+    {
+
+        if (!IsEditing)
+        {
+            Model = new();
+        }
+        else
+        {
+
+        }
+        cases = context.Cases.Include(c => c.Suspect).ToList();
+    }
+    void Cancel() => Dialog.Cancel();
+
+    async Task Submit()
+    {
+        if (!IsEditing)
+        {
+            Model.Date = DateTime.Now;
+            context.Judgements.Add(Model);
+
+            if (context.SaveChanges()!=0)
+            {
+                snackBar.Add("Saved.", Severity.Success);
+                Dialog.Close();
+                return;
+            }
+            else
+            {
+                snackBar.Add("An error ocurred.", Severity.Error);
+                return;
+            }
+
+        }
+        else
+        {
+
+            context.Judgements.Update(Model);
+            if (context.SaveChanges()!=0)
+            {
+                snackBar.Add("Saved.", Severity.Success);
+                Dialog.Close();
+                return;
+            }
+            else
+            {
+                snackBar.Add("An error ocurred.", Severity.Error);
+                return;
+            }
+        }
+    }
+}
