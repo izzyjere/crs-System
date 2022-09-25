@@ -1,9 +1,9 @@
 ﻿@using CRS.Shared
 @inject DatabaseContext context
-@inject ISnackbar snackBar
-<MudDialog>
-    <DialogContent>
-        <EditForm id="editForm" Model="@Model" OnValidSubmit="Submit" OnInvalidSubmit='()=>snackBar.Add("Please fill in all required fields.",Severity.Error)'>
+@inject ISnackbar snackBar 
+<EditForm id="editForm" Model="@Model" OnValidSubmit="Submit" OnInvalidSubmit='()=>snackBar.Add("Please fill in all required fields.",Severity.Error)'>
+    <MudDialog>
+        <DialogContent>
             <DataAnnotationsValidator />
             <MudGrid Justify="Justify.SpaceBetween" Spacing="2">
                 <MudItem xs="12" sm="6">
@@ -32,24 +32,24 @@
                 </MudItem>
 
             </MudGrid>
-        </EditForm>
-    </DialogContent>
-    <DialogActions>
-        <MudButton Variant="Variant.Text" OnClick="Cancel">Cancel</MudButton>
-        <MudButton UserAttributes="@attributes" Variant="Variant.Filled" ButtonType="ButtonType.Submit" Color="Color.Primary">Save</MudButton>
-    </DialogActions>
-</MudDialog>
+
+        </DialogContent>
+        <DialogActions>
+            <MudButton Variant="Variant.Text" OnClick="Cancel">Cancel</MudButton>
+            <MudButton Variant="Variant.Filled" ButtonType="ButtonType.Submit" Color="Color.Primary">Save</MudButton>
+        </DialogActions>
+    </MudDialog>
+</EditForm>
 @code {
     [CascadingParameter] MudDialogInstance Dialog { get; set; }
     [Parameter] public Case Model { get; set; }
     [Parameter] public bool IsEditing { get; set; }
-    Dictionary<string, object> attributes;
+
 
     List<Suspect> suspects = new();
     protected override async Task OnInitializedAsync()
     {
-        attributes = new();
-        attributes.Add("form", "editForm");
+
         if (!IsEditing)
         {
             Model = new();
@@ -66,6 +66,7 @@
     {
         if (!IsEditing)
         {
+            Model.Date = DateTime.Now;
             context.Cases.Add(Model);
 
             if (context.SaveChanges()!=0)

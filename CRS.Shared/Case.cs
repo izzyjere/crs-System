@@ -10,8 +10,11 @@ namespace CRS.Shared
         [Key]
         public int Id { get; set; }
         public int SuspectId { get; set; }
+        [Required]
         public string Offense { get; set; }
+        [Required]
         public string OpenedBy { get; set; }
+        [Required]
         public string PoliceStation { get; set; }
         public DateTime Date { get; set; }
         public Suspect Suspect { get; set; }

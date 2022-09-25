@@ -7,7 +7,7 @@
     <ToolBarContent>
         <MudText Color="Color.Primary" Typo="Typo.h5">Cases</MudText>
         <MudSpacer />
-        <MudButton Color="Color.Primary" Variant="Variant.Filled" StartIcon="@Icons.Material.Filled.Add">Open a Case</MudButton>
+        <MudButton Color="Color.Primary" OnClick="Add" Variant="Variant.Filled" StartIcon="@Icons.Material.Filled.Add">Open a Case</MudButton>
         <MudSpacer/>
         <MudTextField @bind-Value="searchString1" Placeholder="Search" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
     </ToolBarContent>
@@ -46,6 +46,11 @@
     }
     async void Add()
     {
-
+        var dialog = dialogService.Show<AddCaseDialog>("Open a Case");
+        var result = await dialog.Result;
+        if (!result.Cancelled)
+        {
+            cases = db.Cases.Include(c => c.Suspect).ToList();
+        }
     }
 }
