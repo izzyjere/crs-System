@@ -8,6 +8,7 @@
         <MudText Color="Color.Primary" Typo="Typo.h5">Cases</MudText>
         <MudSpacer />
         <MudButton Color="Color.Primary" Variant="Variant.Filled" StartIcon="@Icons.Material.Filled.Add">Open a Case</MudButton>
+        <MudSpacer/>
         <MudTextField @bind-Value="searchString1" Placeholder="Search" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
     </ToolBarContent>
     <HeaderContent>
@@ -42,5 +43,9 @@
     protected override void OnInitialized()
     {
         cases = db.Cases.Include(c => c.Suspect).ToList();
+    }
+    async void Add()
+    {
+
     }
 }

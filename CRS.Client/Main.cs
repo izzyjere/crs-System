@@ -19,7 +19,8 @@ namespace CRS.Client
 
         private void button2_Click(object sender, EventArgs e)
         {
-
+            var form = new CasesView();
+            form.ShowDialog();
         }
 
         private void button3_Click(object sender, EventArgs e)
