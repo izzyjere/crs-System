@@ -86,15 +86,8 @@ namespace CRS.Client
                         return;
                     }
                     pictureBox.Image = image;
-                    if (suspect.Bytes.Count<11)
-                    {
-                        suspect.Bytes.Add(((Image)img).ToByteArray());
-                    }
-                    else
-                    {
-                        MessageBox.Show("Limit of ten prints reached.");
-                        return;
-                    }
+                    suspect.Bytes.Add(((Image)img).ToByteArray()); 
+                    
                 }
 
                 scannerDisplay.Invoke(s => { s.Text = "Fingerprint Captured."; s.ForeColor = Color.Green; });
@@ -118,7 +111,7 @@ namespace CRS.Client
 
         private async void button2_Click(object sender, EventArgs e)
         {
-            if(suspect.Bytes.Count!=10)
+            if(suspect.Bytes.Count<10)
             {
                 MessageBox.Show("Capture all 10 fingers first.");
                 return;
@@ -146,55 +139,6 @@ namespace CRS.Client
         {
             Close();
         }         
-        private void fingerImage1_Click(object sender, EventArgs e)
-        {
-            
-            InitDevice((PictureBox)sender);
-        }
-
-        private void pictureBox1_Click(object sender, EventArgs e)
-        {
-            InitDevice((PictureBox)sender);
-        }
-
-        private void pictureBox2_Click(object sender, EventArgs e)
-        {
-            InitDevice((PictureBox)sender);
-        }
-
-        private void pictureBox3_Click(object sender, EventArgs e)
-        {
-            InitDevice((PictureBox)sender);
-        }
-
-        private void pictureBox4_Click(object sender, EventArgs e)
-        {
-            InitDevice((PictureBox)sender);
-        }
-
-        private void pictureBox9_Click(object sender, EventArgs e)
-        {
-            InitDevice((PictureBox)sender);
-        }
-
-        private void pictureBox8_Click(object sender, EventArgs e)
-        {
-            InitDevice((PictureBox)sender);
-        }
-
-        private void pictureBox7_Click(object sender, EventArgs e)
-        {
-            InitDevice((PictureBox)sender);
-        }
-
-        private void pictureBox6_Click(object sender, EventArgs e)
-        {
-            InitDevice((PictureBox)sender);
-        }
-
-        private void pictureBox5_Click(object sender, EventArgs e)
-        {
-            InitDevice((PictureBox)sender);
-        }
+      
     }
 }
