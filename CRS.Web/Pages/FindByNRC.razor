@@ -56,7 +56,7 @@
         var suspect =  db.Suspects.Include(s=>s.Cases).FirstOrDefault(X => X.NRC == search);
         if(suspect!=null)
         {
-            Model = new SuspectResponse2 { Cases = suspect.Cases.Count, Name = suspect.Name, NRC = suspect.NRC };
+            Model = new SuspectResponse2 { Cases =(int) suspect.Cases?.Count, Name = suspect.Name, NRC = suspect.NRC };
         }
         else{
             snackBar.Add("Not found.", Severity.Success);
