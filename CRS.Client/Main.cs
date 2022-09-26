@@ -47,5 +47,10 @@ namespace CRS.Client
             var form = new ViewRecords();
             form.ShowDialog();
         }
+
+        private void Main_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }
