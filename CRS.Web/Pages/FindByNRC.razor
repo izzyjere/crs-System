@@ -1,0 +1,64 @@
+﻿@page "/findbynrc"
+@inject DatabaseContext db
+@inject ISnackbar snackBar
+<center>
+    <MudPaper Elevation="24" Class="m-6 pa-4" Width="60%">
+        <MudText Class="mb-6" Typo="Typo.h5" Align="Align.Center">Search through Crime Records</MudText>
+        <MudTextField Placeholder="xxxxxx/xx/x" FullWidth @bind-Value="@search" Label="Enter NRC No." Variant="Variant.Outlined" Adornment="Adornment.End" AdornmentIcon="@Icons.Material.Filled.Search" AutoFocus />
+        <MudButton OnClick="Search" Disabled="processing" Variant="Variant.Filled" FullWidth Class="mt-6" Color="Color.Primary">Search</MudButton>
+    </MudPaper>
+    @if(Model !=null)
+    {
+        <MudSimpleTable Bordered Elevation="25" Class="pa-4" Striped Hover>
+            <thead>
+                <tr>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Name:</td>
+                    <td>@Model.Name</td>
+                </tr>
+                <tr>
+                    <td>NRC: </td>
+                    <td>@Model.NRC</td>
+                </tr>
+                <tr>
+                    <td>Has Crimes: </td>
+                    <td>@Model.HasCrimes</td>
+                </tr>
+                <tr>
+                    <td>Number of Cases:</td>
+                    <td>@Model.Cases</td>
+                </tr>
+            </tbody>
+        </MudSimpleTable>
+    }
+</center>
+
+@code {
+    string search = string.Empty;
+    SuspectResponse2 Model = new();
+    bool processing;
+    void Search()
+    { 
+        if(string.IsNullOrEmpty(search))
+        {
+            return;
+        }
+        processing = true; StateHasChanged();
+        var suspect =  db.Suspects.FirstOrDefault(X => X.NRC == search);
+        if(suspect!=null)
+        {
+            Model = new SuspectResponse2 { Cases = suspect.Cases.Count, Name = suspect.Name, NRC = suspect.NRC };
+        }
+        else{
+            snackBar.Add("Not found.", Severity.Success);
+            return;
+        }
+        processing = false;
+        StateHasChanged();
+    }
+}
