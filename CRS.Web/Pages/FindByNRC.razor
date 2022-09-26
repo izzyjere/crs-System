@@ -7,9 +7,11 @@
         <MudTextField Placeholder="xxxxxx/xx/x" FullWidth @bind-Value="@search" Label="Enter NRC No." Variant="Variant.Outlined" Adornment="Adornment.End" AdornmentIcon="@Icons.Material.Filled.Search" AutoFocus />
         <MudButton OnClick="Search" Disabled="processing" Variant="Variant.Filled" FullWidth Class="mt-6" Color="Color.Primary">Search</MudButton>
     </MudPaper>
+    <br/>
+    <br/>
     @if(Model !=null)
-    {
-        <MudSimpleTable Bordered Elevation="25" Class="pa-4" Striped Hover>
+    {   <MudPaper Elevation="24" Class="m-6 pa-4" Width="60%">
+        <MudSimpleTable  Bordered Elevation="25" Class="pa-4 mt-6" Striped Hover>
             <thead>
                 <tr>
                     <th></th>
@@ -34,13 +36,14 @@
                     <td>@Model.Cases</td>
                 </tr>
             </tbody>
-        </MudSimpleTable>
+            </MudSimpleTable>
+        </MudPaper>
     }
 </center>
 
 @code {
     string search = string.Empty;
-    SuspectResponse2 Model = new();
+    SuspectResponse2 Model=null;
     bool processing;
     void Search()
     { 
