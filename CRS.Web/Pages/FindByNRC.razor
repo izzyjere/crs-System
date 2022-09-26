@@ -1,4 +1,5 @@
 ﻿@page "/findbynrc"
+@using Microsoft.EntityFrameworkCore
 @inject DatabaseContext db
 @inject ISnackbar snackBar
 <center>
@@ -52,7 +53,7 @@
             return;
         }
         processing = true; StateHasChanged();
-        var suspect =  db.Suspects.FirstOrDefault(X => X.NRC == search);
+        var suspect =  db.Suspects.Include(s=>s.Cases).FirstOrDefault(X => X.NRC == search);
         if(suspect!=null)
         {
             Model = new SuspectResponse2 { Cases = suspect.Cases.Count, Name = suspect.Name, NRC = suspect.NRC };
