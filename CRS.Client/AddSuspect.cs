@@ -29,7 +29,7 @@ namespace CRS.Client
         FingerprintDevice device;
         SuspectService suspectService = new();
         CitizenResponse Model = new();
-        bool detilsPulled;
+        bool detailsFound;
         SuspectRequest suspect = new();
         void InitDevice()
         {
@@ -67,7 +67,7 @@ namespace CRS.Client
             fingerprint.Save(tmpBmpFile);
             fingerImage.Invoke(i => i.Image = Image.FromFile(tmpBmpFile));
             var image = Image.FromFile(tmpBmpFile);
-            if (!detilsPulled)
+            if (!detailsFound)
             {
                 mainLabel.Invoke(s => { s.Text = "Please wait...."; s.ForeColor = Color.Green; });
                 Model = await suspectService.GetDetails((Bitmap)image);
@@ -88,7 +88,7 @@ namespace CRS.Client
                     chief.Invoke(i => i.Text = Model.Chief);
                     village.Invoke(i => i.Text = Model.Village);
                     placeOfBirth.Invoke(i => i.Text = Model.PlaceOfBirth);
-                    detilsPulled = true;
+                    detailsFound = true;
                 }
             }
             scannerDisplay.Invoke(s => { s.Text = "Fingerprint Captured."; s.ForeColor = Color.Green; });
@@ -133,7 +133,7 @@ namespace CRS.Client
 
         private void scanButton1_Click(object sender, EventArgs e)
         {
-            if (!detilsPulled)
+            if (!detailsFound)
             {
                 return;
             }
@@ -172,7 +172,7 @@ namespace CRS.Client
 
         private void scanButton2_Click(object sender, EventArgs e)
         {
-            if (!detilsPulled)
+            if (!detailsFound)
             {
                 return;
             }
@@ -212,7 +212,7 @@ namespace CRS.Client
 
         private void scanButton3_Click(object sender, EventArgs e)
         {
-            if (!detilsPulled)
+            if (!detailsFound)
             {
                 return;
             }
@@ -252,7 +252,7 @@ namespace CRS.Client
 
         private void scanButton4_Click(object sender, EventArgs e)
         {
-            if (!detilsPulled)
+            if (!detailsFound)
             {
                 return;
             }
@@ -292,7 +292,7 @@ namespace CRS.Client
 
         private void scanButton5_Click(object sender, EventArgs e)
         {
-            if (!detilsPulled)
+            if (!detailsFound)
             {
                 return;
             }
@@ -332,7 +332,7 @@ namespace CRS.Client
 
         private void scanButton6_Click(object sender, EventArgs e)
         {
-            if (!detilsPulled)
+            if (!detailsFound)
             {
                 return;
             }
@@ -372,7 +372,7 @@ namespace CRS.Client
 
         private void scanButton7_Click(object sender, EventArgs e)
         {
-            if (!detilsPulled)
+            if (!detailsFound)
             {
                 return;
             }
@@ -412,7 +412,7 @@ namespace CRS.Client
 
         private void scanButton8_Click(object sender, EventArgs e)
         {
-            if (!detilsPulled)
+            if (!detailsFound)
             {
                 return;
             }
@@ -452,7 +452,7 @@ namespace CRS.Client
 
         private void scanButton9_Click(object sender, EventArgs e)
         {
-            if (!detilsPulled)
+            if (!detailsFound)
             {
                 return;
             }
@@ -492,7 +492,7 @@ namespace CRS.Client
 
         private void scanButton10_Click(object sender, EventArgs e)
         {
-            if (!detilsPulled)
+            if (!detailsFound)
             {
                 return;
             }
